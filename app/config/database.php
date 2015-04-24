@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'escombook', // Nombre de la base de datos
 			'username'  => 'root', // Usuario
-			'password'  => '',     // Contrtaseña
+			'password'  => 'root',     // Contrtaseña
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
