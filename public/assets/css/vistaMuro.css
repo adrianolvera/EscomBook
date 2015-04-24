@@ -1,0 +1,88 @@
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+label{
+    color: #808080;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 30px;
+}
+#wrapper{
+    width: 605px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#msg{
+    border: thin solid #B4BBCD !important;
+    padding: 5px;
+}
+#submit{
+    color: #fff;
+    font-size: 13px;
+    background-color: #5B74A8;
+    background-image: url("background.png");
+    background-position: 0 -98px;
+    background-repeat: no-repeat;
+    border-color: #29447E #29447E #1A356E;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    line-height: normal !important;
+    padding: 4px 6px 4px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: top;
+    white-space: nowrap;
+}
+#wall{
+    width: 430px;
+    min-height: 200px;
+    border: solid thin #B4BBCD;
+    margin-top: 10px;
+}
+#wall ul{
+    list-style: none;
+    font-size: 12px;
+    line-height: 20px;
+}
+#wall ul #date{
+    font-style: italic;
+    font-size: 11px;
+    color: #ccc;
+    padding-left: 5px;
+}
+#loading{
+    float: left;
+    position:relative;
+    top: 10px;
+    left: 450px;
+    display: none;
+}
+
+/*Another*/
+
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+    width: 100% !important;
+}
+
+/*Another*/
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
