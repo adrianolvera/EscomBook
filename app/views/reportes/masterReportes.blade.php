@@ -31,7 +31,7 @@
 
       {{Form::close()}}
 
-        {{$users=DB::table('users')->get()}}
+       
     <footer>
       <hr/>
       <p><strong>Escuela Superior de Cómputo.</strong></p>
