@@ -380,16 +380,16 @@ Route::post('egresado', [
     'as' => 'crear', 'uses' => 'ComentarioController@crear'
 ]);
 
-/*Route::get('reportes', function()
+Route::get('reportes', function()
 {
     $html = '<html><body>';
     $html.= '<p Prueba rapida pdf';
     $html.= 'Aqui puede ir todo el html necesario.</p>';
     $html.= '</body></html>';
     return PDF::load($html, 'A4', 'portrait')->show();
-});*/
-
-Route::get('administrador/reportes',function(){
-	return View::make('reportes/reportes');
 });
 
+/*Route::get('administrador/reportes','PDFController@get_formulario');*/
+
+
+Route::resource('administrador/reportes', 'PDFController');
