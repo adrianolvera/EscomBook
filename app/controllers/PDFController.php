@@ -12,10 +12,12 @@ class PDFController extends BaseController{
 	}
 
 	public function show(){
+		$data= Input::get('generacion');
+		$consulta=DB::select('SELECT * FROM datos_egresados where generacion="$perro"');
 		    $html = '<html><body>'
-		     .'<p Prueba rapida pdf'
-		     .'Aqui puede ir todo el html necesario.</p>'
-		    .'</body></html>';
+            .'<p>Has seleccionado la: '.$data.'</p>'
+            .'</body></html>';
 		    return PDF::load($html, 'A4', 'portrait')->show();
 	}
 }
+

@@ -41,7 +41,7 @@
 'generacion_18'=>'Generacion 18',
 'generacion_19'=>'Generacion 19',
 'generacion_20'=>'Generacion 20',
-'generacion_21'=>'Generacion 21'
+'21'=>'Generacion 21'
 ),'generacion_1')}}
 </div>
       {{Form::submit('Enviar')}}
