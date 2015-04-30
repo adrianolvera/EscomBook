@@ -380,11 +380,15 @@ Route::post('egresado', [
     'as' => 'crear', 'uses' => 'ComentarioController@crear'
 ]);
 
+
+
+
 Route::get('generarPDF', function()
 {
-    $html = '<html><body>';
-    $html.= '<p Prueba rapida pdf';
-    $html.= 'Aqui puede ir todo el html necesario.</p>';
-    $html.= '</body></html>';
+
+    $html = '<html><body>'
+            .'<p>Mi nombre es:'.'</p>'
+            .'</body></html>';
+
     return PDF::load($html, 'A4', 'portrait')->show();
 });
