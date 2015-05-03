@@ -14,7 +14,7 @@
     </hgroup>
   </header> 
     <br>
-      {{Form::open(array('action' => 'PDFController@show', 'method' => 'get'))}}
+      {{Form::open(array('action' => 'PDFController@show', 'method' => 'get', 'target'=>'_blank'))}}
 
 
 
@@ -44,6 +44,22 @@
 '21'=>'Generacion 21'
 ),'generacion_1')}}
 </div>
+<div>
+  {{Form::label('boleta', 'Año de boleta')}}
+{{Form::text('boleta','2011630516')}}
+</div>
+
+<div>
+  {{Form::label('ingreso', 'Año de Ingreso')}}
+{{Form::text('boleta')}}
+</div>
+
+<div>
+ {{Form::label('egreso', 'Año de egreso')}}
+{{Form::text('boleta')}}
+ 
+</div>
+
       {{Form::submit('Enviar')}}
 
 
