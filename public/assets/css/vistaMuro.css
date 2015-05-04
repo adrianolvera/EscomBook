@@ -8,15 +8,6 @@ label{
     font-weight: bold;
     line-height: 30px;
 }
-#wrapper{
-    width: 605px;
-    margin-left: auto;
-    margin-right: auto;
-}
-#msg{
-    border: thin solid #B4BBCD !important;
-    padding: 5px;
-}
 #submit{
     color: #fff;
     font-size: 13px;
@@ -37,30 +28,6 @@ label{
     vertical-align: top;
     white-space: nowrap;
 }
-#wall{
-    width: 430px;
-    min-height: 200px;
-    border: solid thin #B4BBCD;
-    margin-top: 10px;
-}
-#wall ul{
-    list-style: none;
-    font-size: 12px;
-    line-height: 20px;
-}
-#wall ul #date{
-    font-style: italic;
-    font-size: 11px;
-    color: #ccc;
-    padding-left: 5px;
-}
-#loading{
-    float: left;
-    position:relative;
-    top: 10px;
-    left: 450px;
-    display: none;
-}
 
 /*Another*/
 
@@ -71,9 +38,8 @@ label{
 /*Another*/
 
 .fileUpload {
-    position: relative;
+    position: absolute;
     overflow: hidden;
-    margin: 10px;
 }
 .fileUpload input.upload {
     position: absolute;
@@ -86,3 +52,16 @@ label{
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+.media{
+    background-color: white;
+    -moz-border-radius: 20px; /* Firefox */
+    -webkit-border-radius: 20px; /* Google Chrome y Safari */
+    border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estándar a ser soportado por todos los futuros navegadores) */
+}
+
+.column textarea{
+    resize: none;
+}
+
+<button type="button" class="close" aria-label="Close" href="{{ URL::to('egresado') }}"><span aria-hidden="true">&times;</span></button>

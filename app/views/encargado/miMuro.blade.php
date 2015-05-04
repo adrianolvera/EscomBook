@@ -1,46 +1,49 @@
 @extends('plantilla.masterEncargado')
 
+@section('css')
+{{ HTML::style('css/bootstrap.css') }}
+{{ HTML::style('css/bootstrap-theme.css') }}
+{{ HTML::style('assets/css/vistaMuro.css') }}   
+@stop
+
 @section('content')
 	<!-- Page Content -->
-    <div class="container">
+    <section id="main" class="column">
         <br>
         <!-- Blog Entries Column -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="row">
                 <br>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="64px" height="64px"></a>
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="80px" height="80px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                    {{ Form::open(array('action' => 'PostController@store', 'files' => true)) }} 
+                    {{ Form::open(array('route' => 'crearP', 'files' => true)) }}
                         {{ Form::hidden('created_by', Auth::user()->id) }}
                         {{ Form::textarea('feedbox', null, array('class' => 'form-control', 'id' => 'feedbox', 'placeholder' => 'Escribe algo...', 'rows' => '3')) }}
                         <br>
-                        <div id="variable" class="hidden"><img id="img_user" src="uploads/muro/blank_user.jpg" class="img-rounded" width="100"></div>
                         <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-picture"></span>
                             {{ Form::file('image', array('id' => 'archivo', 'class' => 'upload')) }}
                         </div>
-                    <div class="pull-right">
-                        {{ Form::button('Publicar Post', array('class'=>'btn btn-primary btn-xs', 'type'=>'submit')) }}
+                        <div class="pull-right">
+                        {{ Form::button('Publicar Post', array('class'=>'btn btn-primary', 'type'=>'submit')) }}
                         {{ Form::close() }}
-                    </div>
-                </div>
-                
+                    </div><br>
+                    <div id="variable" class=""><img id="img_user" src="uploads/muro/imagen_vacia.png" class="img-rounded" width="10"></div>
+                </div>            
             </div>
             <hr>
             <!-- Posts -->
-            <div id="insert"></div>
-            <!-- From database -->
-            <!-- Second -->
+            <?php $com = Comentario::all(); ?>
             @foreach ($posts as $post)
             @if($post->tipo_post == '0')<!-- Caso post sin imagen -->
             <div class="media">
-                <div class="media-left">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#">
                         <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="media-object" width="64px" height="64px">
                     </a>
                 </div>
-                <div class="media-body">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                     <div class="media-heading">
                         <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
                         <!-- Menu Derecho -->
@@ -53,14 +56,115 @@
                                 <li role="presentation"><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
                             </ul>
                         </div>
-                        <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                     </div>
-                    {{ $post->mensaje }}
+                    <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
+                    <p>{{ $post->mensaje }}</p>
+                    <!-- Like & Add Comment -->
+                    <div>{{ HTML::link('#', 'Me Gusta')}}</div>
+                    @foreach ($com as $c)
+                        @if($c->idPost == $post->id)
+                        @if($c->tipo_comentario == '0')
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img src="uploads/perfil/{{ $c->idUsuario }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
+                            </a>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                <div class="media-heading">
+                                    <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>
+                                    @if($c->idUsuario == Auth::user()->id)
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#editModal">Editar...</a></li>
+                                            <li role="presentation"><a data-toggle="modal" data-idcom="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @else
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
+                                </div>
+                                <p>{{ $c->mensaje }}</p>
+                            </div>
+                        </div>                        
+                        @else<!-- Caso en que tiene imagen  -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img src="uploads/perfil/{{ $c->idUsuario }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
+                            </a>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                <div class="media-heading">
+                                    <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>
+                                    @if($c->idUsuario == Auth::user()->id)
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#editModal">Editar...</a></li>
+                                            <li role="presentation"><a data-toggle="modal" data-idcom="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @else
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
+                                </div>
+                                <p>{{ $c->mensaje }}</p>
+                                <div class="module_content">
+                                    <a class="group1" href="{{ $c->rutaMultimedia }}">
+                                        <img src="{{ $c->rutaMultimedia }}" height="40%" width="40%">
+                                    </a>
+                                </div> 
+                            </div>
+                        </div>
+                        @endif
+                        @endif
+                    @endforeach 
+                    <br>
+                </div><!--media-body-->
+                <!-- Fila comentarios --> 
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="pull-right" width="50px" height="50px"></a>
                 </div>
-            </div>                
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    {{ Form::open(array('route' => 'crearC', 'files' => true)) }} 
+                        {{ Form::hidden('created_by', Auth::user()->id) }}
+                        {{ Form::hidden('post', $post->id) }}                      
+                        <div class="input-group input-group-sm">
+                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+ 
+
+                        <div class="fileUpload btn btn-default btn-sm" id="monitoreo2"><span class="glyphicon glyphicon-camera"></span>
+                            {{ Form::file('imageC', array('id' => 'archivo2', 'class' => 'upload')) }}
+                        </div>
+
+                        </div><!-- /input-group -->
+                    {{ Form::close() }}
+                </div>
+            </div> 
+            <!-- <div class="text-muted"><small>{{ \Carbon\Carbon::now(); }}</small></div> -->
             @else
-                <!-- Caso en que el post tiene una imagen -->
-                <div class="row">
+            <!-- Caso en que el post tiene una imagen -->
+            <div class="media">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#"><img src="uploads/perfil/{{ $post->idUsuario }}.jpg" width="64px" height="64px"></a>
                 </div>
@@ -68,74 +172,146 @@
                     <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
                     <!-- Menu Derecho -->
                     <!-- Los admin y encargados momentaneamente pueden editar de todos -->
-                    <div class="pull-right" id="delete">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><img src="images/flecha-opc.png" class="img-circle" width="100%" alt=""></a>
-                            <ul class="dropdown-menu" role="menu">
-                            <li><a data-toggle="modal" data-idpublicacion="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#editar">Editar</a>
-                            <li><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
-                            </ul>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                            <li role="presentation"><a data-toggle="modal" data-idpublicacion="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#editar">Editar</a></li>
+                            <li role="presentation"><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
+                        </ul>
                     </div>
                     <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
-                    {{ $post->mensaje }}
-                    <div><img src="{{ $post->rutaMultimedia }}" height="400" width="auto"></div>
-                </div><!-- end col-10 -->
-            </div><!-- end row -->
+                    <p>{{ $post->mensaje }}</p>
+                    <div class="module_content">
+                        <a class="group1" href="{{ $post->rutaMultimedia }}">
+                            <img src="{{ $post->rutaMultimedia }}" height="40%" width="40%">
+                        </a>
+                    </div> 
+                    <!-- Like & Comments -->
+                    <div>{{ HTML::link('#', 'Me Gusta')}}</div>
+                    @foreach ($com as $c)
+                        @if($c->idPost == $post->id)
+                        @if($c->tipo_comentario == '0')
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img src="uploads/perfil/{{ $c->idUsuario }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
+                            </a>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                <div class="media-heading">
+                                    <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>                                    
+                                    @if($c->idUsuario == Auth::user()->id)
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#editModal">Editar...</a></li>
+                                            <li role="presentation"><a data-toggle="modal" data-idcom="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @else
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
+                                </div>
+                                <p>{{ $c->mensaje }}</p>
+                            </div>
+                        </div>
+                        @else<!-- Caso en que tiene imagen  -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img src="uploads/perfil/{{ $c->idUsuario }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
+                            </a>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                <div class="media-heading">
+                                    <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>
+                                    @if($c->idUsuario == Auth::user()->id)
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#editModal">Editar...</a></li>
+                                            <li role="presentation"><a data-toggle="modal" data-idcom="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @else
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#delModal">Eliminar...</a></li>
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
+                                </div>
+                                <p>{{ $c->mensaje }}</p>
+                                <div class="module_content">
+                                    <a class="group1" href="{{ $c->rutaMultimedia }}">
+                                        <img src="{{ $c->rutaMultimedia }}" height="40%" width="40%">
+                                    </a>
+                                </div> 
+                            </div>
+                        </div>
+                        @endif
+                        @endif
+                    @endforeach 
+                    <br>                 
+                </div> <!-- col-10 -->
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="#"><img src="uploads/perfil/{{  Auth::user()->id }}.jpg" class="pull-right" width="50px" height="50px"></a>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    {{ Form::open(array('action' => 'ComentarioController@crear', 'files' => true)) }} 
+                        {{ Form::hidden('created_by', Auth::user()->id) }}
+                        {{ Form::hidden('post', $post->id) }}
+                        <div class="input-group input-group-sm">
+                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+                        <div class="fileUpload btn btn-default btn-sm" id="monitoreo2"><span class="glyphicon glyphicon-camera"></span>
+                            {{ Form::file('imageC', array('id' => 'archivo2', 'class' => 'upload')) }}
+                        </div>
+                        </div><!-- /input-group -->
+                    {{ Form::close() }}
+                </div>
+            </div><!-- media -->
             @endif
             <hr>
             @endforeach
+
+        <center><br>
+            {{ $posts->links() }}
+        <br>
+
         </div><!-- Col-6 -->
 
+    </section>
 
-        <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="modalEditar" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content"> <center>
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
-                            <h4>Editar Publicación</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" method="post" action="actualizar">
-                                <input name="idpublicacion" id="ID2" alight="center" readonly size="1"></input>
-                                <textarea class="form-control" rows="3" name="mensaje" id="MENSAJE" value=""></textarea>
-                             <div class="modal-footer">
-                                <!-- <input type="submit" class="btn btn-primary" value="Guardar"> -->
-                                <button type="submit" class="btn-btn-primary btn-xs">Guardar</button>
-                                <a href="#" data-dismiss="modal" class="btn btn-default">Cancelar</a>
-                             </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>       
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+    </section>
+    <!-- /.container -->
+
+@stop
 
 
-            <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminar" aria-hidden="true">
-                 <div class="modal-dialog">
-                     <div class="modal-content"> <center>
-                         <div class="modal-header">
-                             <button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
-                             <h4>Eliminar Publicación</h4>
-                         </div>
-                         <div class="modal-body">
-                             
-                             <form class="form-horizontal" method="post" action="eliminar">
-                                 <h4>¿Estas seguro de querer eliminar el post?
-                                 <input name="idpost" id="ID" alight="center" readonly size="1"></input><br>
-                                 </h4>
-                              <div class="modal-footer">
-                                 <!-- <button type="submit" class="btn btn-primary.btn-xs">Eliminar</button> -->
-                                 <input type="submit" class="btn btn-success" value="Eliminar Post">
-                                 <a href="#" data-dismiss="modal" class="btn btn-default">Cancelar</a>
-                              </div>
-                             </form>
-                             
-                         </div>
-                     </div><!-- Fin modal-content -->
-                 </div>
-             </div>
-
-
-
+@section('js')
+<script src="{{ asset('js/custom.js') }}"></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
 <script type="text/javascript">                                 // BORRAR 
     $(document).on("click", ".open-Modal", function () { 
         var id = $(this).data('idpost');         
@@ -147,24 +323,31 @@
     });
 </script>
 
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-    </div>
-    <!-- /.container -->
-
-@stop
-
-@section('js')
-<script src="{{ asset('js/custom.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
 <script type="text/javascript">
-document.getElementById("uploadBtn").onchange = function () {
-    document.getElementById("uploadFile").value = this.value;
-};
+$(document).ready(function(){
+    $("textarea").keydown(function(event){
+        var message = $(this).val();
+        if(event.which == 13){
+            if($.trim(message) != ""){
+                //alert(message);
+                $(this.form).submit();
+                //return true;
+            }else{
+                alert("This field can't be left empty");                
+            }
+            $("textarea").val('');
+            return false;
+        }
+    });
+});
 </script>
+
+<script type="text/javascript">
+    document.getElementById("uploadBtn").onchange = function() {
+        document.getElementById("uploadFile").value = this.value;
+    };
+</script>
+
 <script>
     //Este string contiene una imagen de 1px*1px color blanco. y no la utilizo
     window.imagenVacia = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
@@ -196,6 +379,7 @@ document.getElementById("uploadBtn").onchange = function () {
                     alert('El formato de imagen no es válido: debe seleccionar una imagen JPG, PNG o GIF.');
                 } else {
                     jQuery('#img_user').attr('src', origen.result);
+                    jQuery('#img_user').attr('width', 100);
                     
                 }
 
@@ -236,4 +420,5 @@ document.getElementById("uploadBtn").onchange = function () {
         $('#variable').css('visibility', 'visible');
     });
 </script>
+
 @stop

@@ -1,4 +1,4 @@
-@extends('plantilla.masterEgresado')
+@extends('plantilla.masterEncargado')
 
 @section('css')
 {{ HTML::style('css/bootstrap.css') }}
@@ -15,54 +15,37 @@
             <div class="row">
                 <br>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="media-object" width="80px" height="80px"></a>
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="80px" height="80px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                    {{ Form::open(array('route' => 'crearP', 'files' => true)) }} 
+                    {{ Form::open(array('route' => 'crearP', 'files' => true)) }}
                         {{ Form::hidden('created_by', Auth::user()->id) }}
                         {{ Form::textarea('feedbox', null, array('class' => 'form-control', 'id' => 'feedbox', 'placeholder' => 'Escribe algo...', 'rows' => '3')) }}
                         <br>
-                    <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-picture"></span>
-                        {{ Form::file('image', array('id' => 'archivo', 'class' => 'upload')) }}
-                    </div>
-                    <div class="pull-right">
+                        <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-picture"></span>
+                            {{ Form::file('image', array('id' => 'archivo', 'class' => 'upload')) }}
+                        </div>
+                        <div class="pull-right">
                         {{ Form::button('Publicar Post', array('class'=>'btn btn-primary', 'type'=>'submit')) }}
                         {{ Form::close() }}
                     </div><br>
                     <div id="variable" class=""><img id="img_user" src="uploads/muro/imagen_vacia.png" class="img-rounded" width="10"></div>
-
-                </div>
+                </div>            
             </div>
             <hr>
             <!-- Posts -->
-            <div id="insert"></div>
-            <!-- From database -->
-            <!-- Second -->
-            <?php $posts = Post::orderBy('updated_at','desc')->paginate(5); ?>
             <?php $com = Comentario::all(); ?>
-
             @foreach ($posts as $post)
-            <?php 
-                $resultados = DB::select('SELECT u.nombre,u.apPaterno,u.apMaterno from users u where u.id = ?', array($post->idUsuario));
-
-                    foreach ($resultados as $resultado)
-                    {
-                        $dato1 = $resultado->nombre;
-                        $dato2 = $resultado->apPaterno;
-                        $dato3 = $resultado->apMaterno;
-                                        
-                    }
-            ?>
-            @if($post->tipo_post == '0')
+            @if($post->tipo_post == '0')<!-- Caso post sin imagen -->
             <div class="media">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#">
-                        <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="media-object" width="80px" height="80px">
+                        <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="media-object" width="64px" height="64px">
                     </a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                     <div class="media-heading">
-                        <b><?php echo $dato1 ." ".$dato2 ." ".$dato3 ;?></b>
+                        <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
                         <!-- Menu Derecho -->
                         <div class="dropdown pull-right">
                             <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -113,7 +96,7 @@
                                 </div>
                                 <p>{{ $c->mensaje }}</p>
                             </div>
-                        </div>
+                        </div>                        
                         @else<!-- Caso en que tiene imagen  -->
                         <div class="media">
                             <a class="pull-left" href="#">
@@ -122,7 +105,7 @@
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                                 <div class="media-heading">
                                     <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
-                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>                                    
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>
                                     @if($c->idUsuario == Auth::user()->id)
                                     <div class="dropdown pull-right">
                                         <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
@@ -157,7 +140,7 @@
                         @endif
                     @endforeach 
                     <br>
-                </div><!-- end col-10 -->
+                </div><!--media-body-->
                 <!-- Fila comentarios --> 
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="pull-right" width="50px" height="50px"></a>
@@ -186,7 +169,7 @@
                     <a href="#"><img src="uploads/perfil/{{ $post->idUsuario }}.jpg" width="64px" height="64px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                    <b><?php echo $dato1 ." ".$dato2 ." ".$dato3 ;?></b>
+                    <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
                     <!-- Menu Derecho -->
                     <!-- Los admin y encargados momentaneamente pueden editar de todos -->
                     <div class="dropdown pull-right">
@@ -251,7 +234,7 @@
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                                 <div class="media-heading">
                                     <?php $UsuarioComentario = User::find( $c->idUsuario); ?>
-                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b> 
+                                    <b>{{ $UsuarioComentario->nombre ." ".$UsuarioComentario->apPaterno ." ".$UsuarioComentario->apMaterno}}</b>
                                     @if($c->idUsuario == Auth::user()->id)
                                     <div class="dropdown pull-right">
                                         <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
@@ -325,10 +308,10 @@
 
 @stop
 
+
 @section('js')
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
-
 <script type="text/javascript">                                 // BORRAR 
     $(document).on("click", ".open-Modal", function () { 
         var id = $(this).data('idpost');         
@@ -339,6 +322,7 @@
         $(".modal-body #ID2").val( idpub );
     });
 </script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $("textarea").keydown(function(event){
@@ -357,11 +341,13 @@ $(document).ready(function(){
     });
 });
 </script>
+
 <script type="text/javascript">
-document.getElementById("uploadBtn").onchange = function () {
-    document.getElementById("uploadFile").value = this.value;
-};
+    document.getElementById("uploadBtn").onchange = function() {
+        document.getElementById("uploadFile").value = this.value;
+    };
 </script>
+
 <script>
     //Este string contiene una imagen de 1px*1px color blanco. y no la utilizo
     window.imagenVacia = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';

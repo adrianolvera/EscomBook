@@ -122,13 +122,13 @@ window.onload=function(){startTime();}
 
 		<h3>Gestión de Contenido</h3>
 		<ul class="toggle">
-			<li class="icn_folder"><a href="{{ URL::to('administrador.muro') }}">Muro</a></li>
+			<li class="icn_folder"><a href="{{ URL::to('administrador.muro') }}">Muro General</a></li>
 			<li class="icn_photo"><a href="gestionPosts">Gestión Posts</a></li>
 		</ul>
 
 		<h3>Generación de Reportes</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="generarPDF">Nuevo Reporte</a></li>
+			<li class="icn_new_article"><a href="administrador/reportes">Nuevo Reporte</a></li>
 			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
 		</ul>

@@ -104,9 +104,12 @@
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                         {{ Form::open(array('action' => 'ComentarioController@crear', 'files' => true)) }} 
                             {{ Form::hidden('created_by', Auth::user()->id) }}
+                            {{ Form::hidden('post', $post->id) }}
                             <div class="input-group">
-                              <input type="text" class="form-control" id="comment"placeholder="Escribe un comentario...">
+                              {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
                               <span class="input-group-btn">
+                                <div id="variable" class=""><img id="img_user" src="uploads/muro/blank_user.jpg" class="img-rounded" width="100"></div>
+                                <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-camera"></span></div>
                                 <button class="btn btn-default" type="button" href="#">
                                     <span class="glyphicon glyphicon-camera"></span>
                                 </button>
@@ -160,15 +163,8 @@
 
                 @endforeach
             </div><!-- END Div for infinite scroll -->
-            <div class="col-md-12">
-                <div class="row text-center">
-                    <a id="inifiniteLoader">
-                        <img src="http://chimplyimage.appspot.com/images/samples/classic-spinner/turningBarIndicator.gif">
-                        <noscript>
-                            You don't have Javascript enabled? You kiddin' me bro.
-                        </noscript>
-                    </a>
-                </div>
+            <div class="paginate text-center">
+                <?php echo $posts->links(); ?>
             </div>
             <!-- Bandera -->
             </div>
@@ -218,7 +214,9 @@
                     </div><!-- Fin modal-content -->
                 </div>
             </div>
-
+<div class="paginate text-center">
+            <?php echo $posts->links(); ?>
+        </div>
         </div><!-- /.row -->
         <hr>
     </div>
@@ -229,15 +227,68 @@
 @section('js')
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
-{{ HTML::script('js/masonry.pkgd.min.js') }}
-{{ HTML::script('js/main.js') }}
-<script>
-    $('#container').masonry({
-        itemSelector: '.item',
-        columnWidth: 100,
-        gutter: 10
+{{ HTML::script('js/jquery.jscroll.min.js') }}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //hides the default paginator
+        $('ul.pagination:visible:first').hide();
+        //init jscroll and tell it a few key configuration details
+        //nextSelector - this will look for the automatically created $posts->links()
+        //contentSelector - this is the element wrapper which is cloned and appended with new paginated data
+        $('.item').jscroll({
+            debug           : true,
+            autoTrigger     : true,
+            nextSelector    : '.pagination li.active + li a',
+            contentSelector : 'paginate',
+            refresh         : true,
+            callback        : function(){
+                //again hide the paginator from view
+                $('ul.pagination:visible:first').hide();
+            }
+        });
     });
 </script>
+
+{{ HTML::script('js/jquery.infinitescroll.min.js') }}
+
+<script>
+    $('.item').infinitescroll({
+        navSelector     : ".paginate",
+        nextSelector    : ".paginate a:last",
+        itemSelector    : ".item",
+        debug           : true,
+        dataType        : 'html',
+        path: function(index) {
+            return "?page=" + 2;
+        }
+    }, function(){
+        var $newElems = $(newElements);
+        $('.item').masonry('appended', $newElems, true);
+    });
+</script>
+
+<script type="text/javascript">
+    var $ = jQuery.noConflict(true);
+    $.noConflict();
+    $(document).ready(function(){
+        var loading_options = {
+            finishedMsg: "<div class='end-msg'>Congratulations! You've reached the end of the internet</div>",
+            msgText: "<div class='center'>Cargando Post Más Antiguos...</div>",
+            img: "images/ajax-loader.gif"
+        };
+
+        $('#pagination').infinitescroll({
+            loading         : loading_options,
+            navSelector     : ".paginate #pagination",
+            nextSelector    : ".paginate #pagination li.active + li a",
+            itemSelector    : "#pagination li.target",
+            debug           : true,
+            dataType        : 'html',
+        });
+    });
+</script>
+
 <script type="text/javascript">                                 // BORRAR 
     $(document).on("click", ".open-Modal", function () { 
         var id = $(this).data('idpost');         

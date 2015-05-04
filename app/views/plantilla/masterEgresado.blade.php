@@ -6,27 +6,98 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Muro | ESCOMBook</title>
-	<!-- CSS are placed here -->	
-	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- CSS are placed here -->
+    <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     @yield('css')
 	<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 	<script src="js/hideshow.js" type="text/javascript"></script>
 	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/jquery.equalHeight.js"></script>
 	<script type="text/javascript">
-		<link rel="stylesheet" href="css/colorbox.css" />
-		<script src="js/jquery.colorbox.js">
-	</script>
+	$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	$(document).ready(function() {
 
+	//When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+
+});
+    </script>
+    <script type="text/javascript">
+    $(function(){
+        $('.column').equalHeight();
+    });
+</script>
+
+<script type="text/javascript"> //HORA 
+function startTime(){
+today=new Date();
+h=today.getHours();
+m=today.getMinutes();
+s=today.getSeconds();
+m=checkTime(m);
+s=checkTime(s);
+document.getElementById('reloj').innerHTML=h+":"+m+":"+s;
+t=setTimeout('startTime()',500);}
+function checkTime(i)
+{if (i<10) {i="0" + i;}return i;}
+window.onload=function(){startTime();}
+</script>
+
+
+        <link rel="stylesheet" href="css/colorbox.css" />
+		<script src="js/jquery.colorbox.js"></script>
+		<script>
+			$(document).ready(function(){
+				//Examples of how to assign the Colorbox event to elements
+				$(".group1").colorbox({rel:'group1'});
+				$(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+				$(".callbacks").colorbox({
+					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+					onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+				});
+
+				$('.non-retina').colorbox({rel:'group5', transition:'none'})
+				$('.retina').colorbox({rel:'group5', transition:'none', retinaImage:true, retinaUrl:true});
+				
+				//Example of preserving a JavaScript event for inline calls.
+				$("#click").click(function(){ 
+					$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+					return false;
+				});
+			});
+		</script>
 
 </head>
+
+
 <body>
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="egresado">ESCOMBook</a></h1>
-			<h2 class="section_title">MURO</h2>
+			<h1 class="site_title"><a href="administrador">ESCOMBook</a></h1>
+			<h2 class="section_title">Muro de Egresado</h2>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
@@ -42,13 +113,21 @@
 		</form>
 		<hr/>
 
-		<h3>MENU</h3>
+		<h3>Menu</h3>
 		<ul class="toggle">
-			<li class=><a href="{{ URL::to('egresado.muro') }}">Mi Muro</a></li>
-			<li class=><a href="#">Perfil</a></li>
-			<li class=><a href="#">Encuestas</a></li>
+			<li class="icn_folder"><a href="{{ URL::to('egresado.miMuro') }}">Mi Muro</a></li>
 		</ul>
-		
+
+		<h3>Administración</h3>
+		<ul class="toggle">
+			<li class="icn_profile"><a href="#">Mi Perfil</a></li>
+		</ul>
+
+		<h3>Datos a Contestar</h3>
+		<ul class="toggle">
+			<li class="icn_folder"><a href="#">Encuestas</a></li>
+		</ul>
+
 		
 		<footer>
 			<hr/>
@@ -61,7 +140,7 @@
 
 	@yield('content')
 	<!-- Bootstrap JavaScript -->
-	@yield('js')	
+	@yield('js')
 </body>
 
 </html>

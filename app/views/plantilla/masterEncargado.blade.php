@@ -127,7 +127,7 @@ window.onload=function(){startTime();}
 
 		<h3>Gestión de Contenido</h3>
 		<ul class="toggle">
-			<li class="icn_folder"><a href="{{ URL::to('encargado.muro') }}">Muro</a></li>
+			<li class="icn_folder"><a href="{{ URL::to('encargado.muro') }}">Muro General</a></li>
 			<li class="icn_photo"><a href="gestionPosts">Gestión Posts</a></li>
 		</ul>
 

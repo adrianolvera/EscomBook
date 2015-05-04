@@ -343,52 +343,71 @@ Route::get('egresado', array('before' => 'auth', function() // Tipo 3
 }));
 
 
-
-
 Route::get('agregarUsuario', array('before' => 'auth', function() // Agregar Usuario Administrador
 {
-	return View::make('administrador.agregarUsuario');
-}));
+	if (Auth::check())
+	{
+	    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+					return View::make('administrador.agregarUsuario');
+				}
+				elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+					return View::make('encargado.agregarUsuario');
+				}
+				else{
+					return Redirect::to('egresado');
+				}// El usuario está autenticado
+	}
+
+	}));
+
+Route::post('agregarNuevoUsuario','AdministradorController@agregarusuario'); // Agregar Usuario (Administrador)
+
 
 
 /* Rutas del muro: PostController */
 // Toño
-Route::get('egresado', 'PostController@wall');
-Route::post('egresado', 'PostController@store');
-//Nuevas Rutas
-Route::get('egresado.muro', 'PostController@myMuro');
-Route::get('encargado.muro', 'PostController@wall');
-Route::get('encargado.miMuro', 'PostController@myMuro');
-Route::get('administrador.muro', 'PostController@wall');
-// Route::get('wall', 'PostController@wall');
-// Route::post('wall', 'PostController@store');
+Route::group(array('before' => 'is_egresado'), function(){
+	Route::get('egresado', 'PostController@wall');
+	Route::get('egresado.miMuro', 'PostController@myMuro');
+});
+
+Route::group(array('before' => 'is_encargado'), function(){
+	Route::get('encargado.muro', 'PostController@wall');
+	Route::get('encargado.miMuro', 'PostController@myMuro');
+});
+
+Route::group(array('before' => 'is_admin'), function(){
+	Route::get('administrador.muro', 'PostController@wall');
+	Route::get('gestionPosts', 'PostController@mostrarTodos');
+	Route::get('gestionPosts.show/{id}', 'PostController@show');
+	Route::get('gestionPosts.edit/{id}', 'PostController@edit');
+	Route::post('gestionPosts.edit/{id}', 'PostController@actualizar');
+	Route::get('gestionPosts.delete/{id}', 'PostController@erase');
+});
 
 Route::post('eliminar','PostController@delete'); //Eliminar
 Route::post('actualizar','PostController@update'); //Actualizar
 
-Route::get('gestionPosts', 'PostController@mostrarTodos');
-Route::get('gestionPosts.show/{id}', 'PostController@show');
-Route::get('gestionPosts.edit/{id}', 'PostController@edit');
-Route::post('gestionPosts.edit/{id}', 'PostController@actualizar');
-Route::get('gestionPosts.delete/{id}', 'PostController@erase');
 
+//Vista  gestionPosts de amdin
 Route::get('borrar/{id}', [
     'as' => 'borrar', 'uses' => 'PostController@erase'
 ]);
-
-Route::post('egresado', [
-    'as' => 'crear', 'uses' => 'ComentarioController@crear'
+/*POSTS*/
+Route::post('muro', [
+    'as' => 'crearP', 'uses' => 'PostController@store'
+]);
+/* COMENTARIOS */
+Route::post('comentario', [
+    'as' => 'crearC', 'uses' => 'ComentarioController@crear'
 ]);
 
+Route::post('borrarC', [
+    'as' => 'deleteC', 'uses' => 'ComentarioController@delete'
+]);
+/* Vista muro egresado */
+Route::get('borrarComentario/{id}', [
+    'as' => 'borrarComentario', 'uses' => 'ComentarioController@borrar'
+]);
 
-
-
-Route::get('generarPDF', function()
-{
-
-    $html = '<html><body>'
-            .'<p>Mi nombre es:'.'</p>'
-            .'</body></html>';
-
-    return PDF::load($html, 'A4', 'portrait')->show();
-});
+Route::resource('administrador/reportes', 'PDFController');
