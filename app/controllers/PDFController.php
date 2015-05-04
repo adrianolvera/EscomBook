@@ -12,7 +12,8 @@ class PDFController extends BaseController{
 
 	public function show(){
 		$data= Input::get('generacion');
-		$consulta=DB::select('SELECT * FROM datos_egresados where generacion=:id',['id'=>$data]);
+		Session::put('prueba',$data);
+	
 /*	$consulta=DB::select('SELECT * FROM datos_egresados where generacion="21"');*/
 
 /*	foreach ($consulta as $consul) {
@@ -48,6 +49,7 @@ class PDFController extends BaseController{
             .'<p>Recordar que la consulta devuelve un arreglo de objetos.</p>'
             .'<p>Validar.</p>'
             .'</body></html>';*/
+            
             $view=View::make('reportes.reporteGeneracion');
             $html=$view->render();
 		    return PDF::load($html, 'A4', 'portrait')->show();
