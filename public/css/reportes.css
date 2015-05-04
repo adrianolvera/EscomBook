@@ -1,0 +1,56 @@
+page {
+	margin: 40px 20px;
+}
+
+    h1, h2, h3, h4 
+    {
+    	margin: 0 0 5px;
+    }
+
+    p {
+    	font-size: 1.2em
+    }
+
+    .guindaipn{
+    	color:#600;
+    }
+
+    .azulescom{
+    	color:#0047B6;
+    }
+
+    .negrita {
+    	font-weight: bold;
+    }
+
+    .subrayado {
+    	text-decoration: underline;
+    	 }
+
+    #fechaCreacion { 
+    	margin:20px 0;
+    }
+
+    #precontenido {
+    	margin-bottom: 30px;
+    }
+
+    .text-center {
+    	text-align: center;
+    }
+
+    .fullWidth {
+    	width:100% !important; max-width:100% !important;
+    }
+
+    table {
+    	border-collapse: collapse; width: 90%; max-width: 90% !important;
+    }
+
+    .table tbody tr td, .table tr th {
+    	vertical-align: middle; text-align: center; padding: 15px 0;
+    }
+    
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #ddd !important;
+    }
