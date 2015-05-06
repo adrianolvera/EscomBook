@@ -410,4 +410,5 @@ Route::get('borrarComentario/{id}', [
     'as' => 'borrarComentario', 'uses' => 'ComentarioController@borrar'
 ]);
 
+
 Route::resource('administrador/reportes', 'PDFController');
