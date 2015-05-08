@@ -393,3 +393,5 @@ Route::post('egresado', [
 
 
 Route::resource('administrador/reportes', 'PDFController');
+
+
