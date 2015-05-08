@@ -30,7 +30,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 					if ($idUser == null && $idComentario == null ) { 
 					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL; $dato7 = NULL;
-					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
+					?><br><br><br><br><a class="btn" href="javascript:history.back(1)">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 

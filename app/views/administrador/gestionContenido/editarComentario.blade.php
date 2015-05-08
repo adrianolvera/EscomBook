@@ -56,7 +56,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 					?>
 
 
-								<form  method="post" action="GuardarEditarComentario">
+								<form  method="post" action="GuardarEditarComentario2">
 								<?php if ($idUser =! null) {?>
 								<h3> Hola <?php echo $dato3; ?> por favor edita en la parte inferior tu comentario.</h3>
 								<?php } else { echo "<br>";}?>
@@ -81,7 +81,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 						<?php } else { 
 
-							?> <br><br><h2>No puedes editar este Comentario</h2><br><br><a class="btn"  href="vePost?id=<?php echo $idPOST?>&id2=<?php echo $dato7?>">Regresar</a><br><br><br><br> <?php }?>		
+							?> <br><br><h2>No puedes editar este Comentario</h2><br><br><a class="btn"  href="javascript:history.back(1)">Regresar</a><br><br><br><br> <?php }?>		
 
 				<?php }?>			
 

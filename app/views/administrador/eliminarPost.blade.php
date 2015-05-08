@@ -28,7 +28,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 						$dato1 = $idPost;
 
 					if ($idUser == null && $idPost == null ) { 
-					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;
+					echo "<META HTTP-EQUIV='Refresh' CONTENT='0; url=administrador'>"; 
 					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
 					}
 					else{

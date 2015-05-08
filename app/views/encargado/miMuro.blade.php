@@ -8,19 +8,18 @@
 
 @section('content')
 	<!-- Page Content -->
-    <section id="main" class="column">
+    <section id="main" class="column" style="background-color:#dddde2">
         <br>
         <!-- Blog Entries Column -->
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <div class="row">
-                <br>
+            <div class="media"> <br>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="80px" height="80px"></a>
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="media-object" width="80px" height="80px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                     {{ Form::open(array('route' => 'crearP', 'files' => true)) }}
                         {{ Form::hidden('created_by', Auth::user()->id) }}
-                        {{ Form::textarea('feedbox', null, array('class' => 'form-control', 'id' => 'feedbox', 'placeholder' => 'Escribe algo...', 'rows' => '3')) }}
+                        {{ Form::textarea('feedbox', null, array('class' => 'form-control', 'id' => 'feedbox', 'placeholder' => 'Escribe algo...', 'rows' => '3','required')) }}
                         <br>
                         <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-picture"></span>
                             {{ Form::file('image', array('id' => 'archivo', 'class' => 'upload')) }}
@@ -29,15 +28,25 @@
                         {{ Form::button('Publicar Post', array('class'=>'btn btn-primary', 'type'=>'submit')) }}
                         {{ Form::close() }}
                     </div><br>
-                    <div id="variable" class=""><img id="img_user" src="uploads/muro/imagen_vacia.png" class="img-rounded" width="10"></div>
-                </div>            
+                    <div id="variable" class=""><img id="img_user" src="uploads/muro/imagen_vacia.png" class="img-rounded" width="10"></div><br>
+                </div> <br><br>           
             </div>
             <hr>
+
+             <?php if (Session::has('comentarioImagen_Error')) {?>
+                <h4 class="alert_error">Comentario no agregado, verifica que tu imagen sea menor a 2MB y sea de tipo : .jpg, .png, .bmp o .gif!</h4>
+             <?php }?>  
+
+             <?php if (Session::has('postImagen_Error')) {?>
+                <h4 class="alert_error">Post no agregado, verifica que tu imagen sea menor a 2MB y sea de tipo : .jpg, .png, .bmp o .gif!</h4>
+             <?php }?>               
+
+             
             <!-- Posts -->
             <?php $com = Comentario::all(); ?>
             @foreach ($posts as $post)
-            @if($post->tipo_post == '0')<!-- Caso post sin imagen -->
-            <div class="media">
+            @if($post->tipo_post == '0')<!-- POST sin Imagen (Armando) -->
+            <div class="media"> <br>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#">
                         <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="media-object" width="64px" height="64px">
@@ -129,11 +138,10 @@
                                     <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
                                 </div>
                                 <p>{{ $c->mensaje }}</p>
-                                <div class="module_content">
-                                    <a class="group1" href="{{ $c->rutaMultimedia }}">
-                                        <img src="{{ $c->rutaMultimedia }}" height="40%" width="40%">
-                                    </a>
-                                </div> 
+
+                              <ul class="gallery">
+                                <a href="{{ $c->rutaMultimedia }}"><img src="{{ $c->rutaMultimedia }}" alt="Image" height="40%" width="40%"></a>
+                              </ul>
                             </div>
                         </div>
                         @endif
@@ -150,13 +158,12 @@
                         {{ Form::hidden('created_by', Auth::user()->id) }}
                         {{ Form::hidden('post', $post->id) }}                      
                         <div class="input-group input-group-sm">
-                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1','required')) }}
  
 
                         <div class="fileUpload btn btn-default btn-sm" id="monitoreo2"><span class="glyphicon glyphicon-camera"></span>
                             {{ Form::file('imageC', array('id' => 'archivo2', 'class' => 'upload')) }}
-                        </div>
-
+                        </div> <br><br><br>
                         </div><!-- /input-group -->
                     {{ Form::close() }}
                 </div>
@@ -164,7 +171,7 @@
             <!-- <div class="text-muted"><small>{{ \Carbon\Carbon::now(); }}</small></div> -->
             @else
             <!-- Caso en que el post tiene una imagen -->
-            <div class="media">
+            <div class="media"> <br>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <a href="#"><img src="uploads/perfil/{{ $post->idUsuario }}.jpg" width="64px" height="64px"></a>
                 </div>
@@ -183,11 +190,9 @@
                     </div>
                     <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                     <p>{{ $post->mensaje }}</p>
-                    <div class="module_content">
-                        <a class="group1" href="{{ $post->rutaMultimedia }}">
-                            <img src="{{ $post->rutaMultimedia }}" height="40%" width="40%">
-                        </a>
-                    </div> 
+                              <ul class="gallery">
+                                <a href="{{ $post->rutaMultimedia }}"><img src="{{ $post->rutaMultimedia }}" alt="Image" height="40%" width="40%"></a>
+                              </ul>
                     <!-- Like & Comments -->
                     <div>{{ HTML::link('#', 'Me Gusta')}}</div>
                     @foreach ($com as $c)
@@ -258,11 +263,9 @@
                                     <div class="text-muted"><small>{{ $c->updated_at }}</small></div>
                                 </div>
                                 <p>{{ $c->mensaje }}</p>
-                                <div class="module_content">
-                                    <a class="group1" href="{{ $c->rutaMultimedia }}">
-                                        <img src="{{ $c->rutaMultimedia }}" height="40%" width="40%">
-                                    </a>
-                                </div> 
+                              <ul class="gallery">
+                                <a href="{{ $c->rutaMultimedia }}"><img src="{{ $c->rutaMultimedia }}" alt="Image" height="40%" width="40%"></a>
+                              </ul>
                             </div>
                         </div>
                         @endif
@@ -278,10 +281,10 @@
                         {{ Form::hidden('created_by', Auth::user()->id) }}
                         {{ Form::hidden('post', $post->id) }}
                         <div class="input-group input-group-sm">
-                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1','required')) }}
                         <div class="fileUpload btn btn-default btn-sm" id="monitoreo2"><span class="glyphicon glyphicon-camera"></span>
                             {{ Form::file('imageC', array('id' => 'archivo2', 'class' => 'upload')) }}
-                        </div>
+                        </div> <br><br><br>
                         </div><!-- /input-group -->
                     {{ Form::close() }}
                 </div>

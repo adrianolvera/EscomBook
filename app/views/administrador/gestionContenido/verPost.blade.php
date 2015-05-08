@@ -50,15 +50,15 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 							$idUser = $dato0;
 
 							Session::forget('idUsuarioSession');
-							Session::forget('idPostSession');
+							Session::forget('idPostSession');							
 						}
 
 
 					$dato2 = NULL; $dato3 = null; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;  $dato7 = NULL;  $dato8 = NULL;
 
 					if ($dato0 == null && $dato1 == null ) { 
-					echo "<META HTTP-EQUIV='Refresh' CONTENT='0; url=administrador'>";  
-					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
+					echo "<META HTTP-EQUIV='Refresh' CONTENT='0; url=gestionPosts'>";  
+					?><br><br><br><br><a class="btn" href="javascript:history.back(1)">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 
@@ -124,7 +124,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 						<br>
 
-						<a class="btn" href="administrador">Regresar</a><br>
+						<a class="btn" href="javascript:history.back(1)">Regresar</a><br>
 						</form>	
 
 
@@ -177,9 +177,9 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
     				<td>{{ $p->nombre ." ". $p->apPaterno}}</td> 
     				<td><span class="label label-info"></span>{{ $p->updated_at }}</td> 
     				<td>
-    					<a href="veComentario?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_search.png" title="Ver"></a>
-    					<a href="editComentario?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
-    					<a href="eliminaComentario?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
+    					<a href="veComentario2?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_search.png" title="Ver"></a>
+    					<a href="editComentario2?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
+    					<a href="eliminaComentario2?id=<?php echo $p->idUsuario?>&id2=<?php echo $p->id?>&id3=<?php echo $ValorPost?>"><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
     				</td> 
 				</tr>
 				@endforeach	    	

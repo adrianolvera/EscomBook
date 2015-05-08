@@ -97,6 +97,12 @@
 		 				<h4> <p style='color:#FB1D1D'>El CURP y/o Contraseña son incorrectos. </p> </h4>
 		 				 <?php }?>
 
+		 				 <?php if (Session::has('suspendido')) {?><br><br>
+		 				<h4> <p style='color:#FB1D1D'>Actualmente tu cuenta esta suspendida,comunicate con el:<br><br> Lic. José Francisco Serrano García
+						<br>Horario: 9:00 a 15:00 hrs. y 18:00 a 21:00 hrs.
+						<br>Contacto: Tel. 57296000 Ext. 52056 / ext_ae_escom@ipn.mx. </p> </h4>
+		 				 <?php }?>		 				 
+
 		 				 <?php if (Session::has('no_activo')) {?><br><br>
 		 				<h4> <p style='color:#FB1D1D'>Actualmente tu cuenta esta inactiva,comunicate con el:<br><br> Lic. José Francisco Serrano García
 						<br>Horario: 9:00 a 15:00 hrs. y 18:00 a 21:00 hrs.

@@ -79,34 +79,4 @@ Route::filter('csrf', function()
 	}
 });
 
-Route::filter('is_egresado', function($route, $request)
-{
-	//no te quieras pasar de listo
-	if(Auth::user()->tipo != '3')
-		if(Auth::user()->tipo == '1')
-			return Redirect::to('administrador');
-		elseif(Auth::user()->tipo == '2')
-			return Redirect::to('encargado');
-	//$route->getPath();
-	//return Redirect::back();
-});
 
-Route::filter('is_admin', function($route, $request)
-{
-	//no te quieras pasar de listo
-	if(Auth::user()->tipo != '1')
-		if(Auth::user()->tipo == '2')
-			return Redirect::to('encargado');
-		elseif(Auth::user()->tipo == '3')
-			return Redirect::to('egresado');
-});
-
-Route::filter('is_encargado', function($route, $request)
-{
-	//no te quieras pasar de listo
-	if(Auth::user()->tipo != '2') //return Redirect::back();
-		if(Auth::user()->tipo == '1')
-			return Redirect::to('administrador');
-		elseif(Auth::user()->tipo == '3')
-			return Redirect::to('egresado');
-});

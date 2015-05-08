@@ -1431,7 +1431,7 @@ pre code {
   width: 100%;
 }
 .col-xs-11 {
-  width: 91.66666667%;
+  width: 96%;
 }
 .col-xs-10 {
   width: 83.33333333%;
@@ -1588,7 +1588,7 @@ pre code {
     width: 100%;
   }
   .col-sm-11 {
-    width: 91.66666667%;
+    width: 96%;
   }
   .col-sm-10 {
     width: 83.33333333%;
@@ -1746,7 +1746,7 @@ pre code {
     width: 100%;
   }
   .col-md-11 {
-    width: 91.66666667%;
+    width: 96%;
   }
   .col-md-10 {
     width: 83.33333333%;
@@ -1904,7 +1904,7 @@ pre code {
     width: 100%;
   }
   .col-lg-11 {
-    width: 91.66666667%;
+    width: 96%;
   }
   .col-lg-10 {
     width: 83.33333333%;
@@ -3485,8 +3485,9 @@ tbody.collapse.in {
 }
 .input-group {
   position: relative;
-  display: table;
+  display: block;
   border-collapse: separate;
+  padding-right: 30px;
 }
 .input-group[class*="col-"] {
   float: none;

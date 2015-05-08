@@ -35,14 +35,14 @@ class PostController extends BaseController {
             	array_push($comments, $aux);
         }
         if (Auth::user()->tipo == '1')
-        	return View::make('administrador', array('posts' => $posts, 'comments' => $comments));
+        	return View::make('administrador/miMuro', array('posts' => $posts, 'comments' => $comments));
         elseif(Auth::user()->tipo == '2')
         	return View::make('encargado/miMuro', array('posts' => $posts, 'comments' => $comments));
         else
         	return View::make('egresado/miMuro', array('posts' => $posts, 'comments' => $comments));
     }
 
-	public function store()
+	public function store() // Guardar POST (Con Imagen o Sin Ella)
 	{
 		$post = new Post;
 		$post->mensaje = Input::get('feedbox');
@@ -54,25 +54,41 @@ class PostController extends BaseController {
 	    	// Within the ruleset, make sure we let the validator know that this
 	    	// file should be an image
 			$reglas  = array(
-	            'image'   => 'image|mimes:jpeg,jpg,png|max:128'
+	            'image'   => 'mimes:jpg,jpeg,png,bmp,gif|max:2056'
 	        );
 	        // Now pass the input and rules into the validator
 	    	$validator = Validator::make($input, $reglas);
 			if($validator->fails()){
 				if (Auth::user()->tipo == '3'){
-					return Redirect::back()->withErrors($validator); 
+					return Redirect::back()->with('postImagen_Error',true);
 				}elseif (Auth::user()->tipo == '2'){
-					return Redirect::back()->withErrors($validator);
+					return Redirect::back()->with('postImagen_Error',true);
 				}else{
-					return Redirect::back()->withErrors($validator);
+					return Redirect::back()->with('postImagen_Error',true);
 				}
 	    	}else{
 				$image = Input::file('image');
-				$post->tipo_post = '1';
-				$post->rutaMultimedia = 'uploads/muro/'.$image->getClientOriginalName();
+				$extension = $image->getClientOriginalExtension(); //Saco la EXTENSIÓN
+
+
+				$post->tipo_post = '1'; // Con Imagen
+
+		    	//GENERAR NOMBRE ALEATORIO
+		    	$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"; //posibles caracteres a usar
+				$numerodeletras=50; //numero de letras para generar el texto
+				$cadena = ""; //variable para almacenar la cadena generada
+				for($i=0;$i<$numerodeletras;$i++)
+				{
+				    $cadena .= substr($caracteres,rand(0,strlen($caracteres)),1); /*Extraemos 1 caracter de los caracteres */
+				}
+
+				$nuevonombre = $cadena.".".$extension;
+
+				$post->rutaMultimedia = 'uploads/muro/'.$nuevonombre; // Guardando en el servidor
+
 				//guardamos la imagen en public/uploads/muro con el nombre original de la imagen
 				$destination_path = "uploads/muro";
-				$destination_filename = $image->getClientOriginalName();
+				$destination_filename = $nuevonombre;
 				$image->move($destination_path, $destination_filename);
 			}
     	
@@ -159,16 +175,61 @@ class PostController extends BaseController {
 
 	public function mostrarTodos()
 	{
+		$posts = Post::orderBy('updated_at','desc')->paginate(10);
+
         if (Auth::user()->tipo == '1')
-        	return View::make('administrador.gestionPosts'); // Regresa gestion posts
+        	return View::make('administrador.gestionPosts', array('posts' => $posts)); // Regresa gestion posts
         elseif(Auth::user()->tipo == '2')
-        	return View::make('encargado.gestionPosts'); // Regresa gestion posts
+        	return View::make('encargado.gestionPosts', array('posts' => $posts)); // Regresa gestion posts
 	}
 
-	// Armando
-	public function mostrarAdministradorTodos()
+	public function buscarpost()
 	{
-		$publicaciones = DB::select('SELECT u.id,mensaje,u.nombre,u.apPaterno,p.updated_at from post p, users u where u.id = p.idUsuario ORDER BY updated_at desc');
-        return View::make('administrador.index', array('posts' => $publicaciones)); // Regresa gestion posts
-	}
+		$palabra = Input::get('palabraclave');
+		$curp = Input::get('curp');
+		$fecha = Input::get('fecha');
+
+
+		if ($palabra != "VACIO") { // BUSCAR POR PALABRA CLAVE
+			Session::put("BusquedaPorPalabra", $palabra);
+
+			if (Auth::user()->tipo == '1')
+	        	return View::make('administrador.busqueda'); // Va a mostrar Resultados
+	        elseif(Auth::user()->tipo == '2')
+	        	return View::make('encargado.busqueda'); // Va a mostrar Resultados
+	        else
+	        	return Redirect::to('egresado'); // Regresa al Muro        			
+		}
+
+
+		if ($curp != "GIRM910230HDFCRM00") { // BUSCAR POR PALABRA CURP
+			Session::put("BusquedaPorCurp", $curp);
+
+			if (Auth::user()->tipo == '1')
+	        	return View::make('administrador.busqueda'); // Va a mostrar Resultados
+	        elseif(Auth::user()->tipo == '2')
+	        	return View::make('encargado.busqueda'); // Va a mostrar Resultados
+	        else
+	        	return Redirect::to('egresado'); // Regresa al Muro           			
+		}
+
+
+
+		if ($fecha != "2015-02-30") { // BUSCAR POR PALABRA FECHA
+			Session::put("BusquedaPorFecha", $fecha);
+
+			if (Auth::user()->tipo == '1')
+	        	return View::make('administrador.busqueda'); // Va a mostrar Resultados
+	        elseif(Auth::user()->tipo == '2')
+	        	return View::make('encargado.busqueda'); // Va a mostrar Resultados
+	        else
+	        	return Redirect::to('egresado'); // Regresa al Muro            			
+		}
+
+
+		return Redirect::to('buscador'); // Regresa al Muro  					
+
+        
+	}	
+
 }

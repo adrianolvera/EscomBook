@@ -1,8 +1,4 @@
-
-<?php 
-
-
-
+<?php  
 class PDFController extends BaseController{
 
 	public function index(){
@@ -16,7 +12,6 @@ class PDFController extends BaseController{
 
 	public function show(){
 		$data= Input::get('generacion');
-
 		Session::put('prueba',$data);
 	
 /*	$consulta=DB::select('SELECT * FROM datos_egresados where generacion="21"');*/
@@ -47,23 +42,18 @@ class PDFController extends BaseController{
             .'</tr>'
             .@endforeach
             .'</table>'
->>>>>>> reportes
             .'<br><br>'
             .'<p>Validar.</p>'
             .'<p>Agregar imagenes a formato de reporte.</p>'
             .'<p>Preguntar que datos llevan las columnas del reporte.</p>'
             .'<p>Recordar que la consulta devuelve un arreglo de objetos.</p>'
             .'<p>Validar.</p>'
-<<<<<<< HEAD
-            .'</body></html>';
-=======
             .'</body></html>';*/
             
             $view=View::make('reportes.reporteGeneracion');
             $html=$view->render();
-
 		    return PDF::load($html, 'A4', 'portrait')->show();
 	}
 }
 
-
+?>

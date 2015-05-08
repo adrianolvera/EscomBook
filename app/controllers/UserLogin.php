@@ -28,6 +28,11 @@ class UserLogin extends BaseController {
 				return Redirect::to('/')->with('no_activo',true);
 			}
 
+			if(Auth::user()->status == '3'){
+				Auth::logout();
+				return Redirect::to('/')->with('suspendido',true);
+			}			
+
 		}
 		else
 		{
@@ -132,7 +137,7 @@ class UserLogin extends BaseController {
 
 		if ($idusuario != 0) {
 
-			if ($status == '1' || $tipo != 3) {
+			if ($status == '1' || $tipo != "3" || $status == '3') {
 				return Redirect::to('/')->with('ya_actualizo',true);
 			}
 			else{
@@ -159,11 +164,12 @@ class UserLogin extends BaseController {
 		$tipo = Input::get('tipo');
 		$status = Input::get('status');		
 
-		$boleta = Input::get('boleta');
-		$generacion = Input::get('generacion');	
+		$tipoTelefono = Input::get('tipoTelefono');
+		$numero = Input::get('telefono');
+		$extension = Input::get('extTelefono');
 
 
-			// Guardar en la BD los nuevos datos
+			// Guardar en la BD los nuevos datos (Usuario)
 
 			$user = User::find( $idusuario);
 			$user -> nombre = $nombre;
@@ -174,18 +180,12 @@ class UserLogin extends BaseController {
 
 			$user->save();	 // Guardo	Datos Usuario
 
-        $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario));
+        $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario)); // Saco el IdUsuario
 
 		foreach ($resultados as $resultado)
 		{
     		$idEgresado = $resultado->id;
 		}					
-
-
-			$egresado = DatosEgresado::find($idEgresado);
-			$egresado -> boleta = $boleta;
-
-			$egresado->save();	 // Guardo Boleta
 
 
 			$mail = new Correo;
@@ -194,6 +194,18 @@ class UserLogin extends BaseController {
 		    $mail -> tipoCorreo = 1;  // Asigna por Default "Personal"
 
 			$mail -> save(); // Guardo Correo
+
+
+			$UserTel = new Telefono;
+			$UserTel -> idUsuario = $idusuario;
+			$UserTel -> telefono = $numero;
+
+			if ($extension != null) {
+				$UserTel -> extension = $extension;
+			}
+
+			$UserTel -> tipoTelefono = $tipoTelefono;
+			$UserTel -> save(); // Guardo los Datos
 
 
 			// ENVIAR EL CORREO DE REGISTRO

@@ -16,7 +16,16 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 </script>
 
-		</h4>		
+		</h4>	
+
+		<?php if (Session::has('agregarUsuario_Correcto')) {?>
+			<h4 class="alert_success">Usuario Agregado Correctamente!</h4>
+		 <?php }?>
+
+		<?php if (Session::has('agregarUsuario_Error')) {?>
+			<h4 class="alert_error">Error al agregar al Usuario <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			Ya Existe un CURP y/o Boleta registrados anteriormente!</h4>
+		 <?php }?>				
 
 		<!-- INICIO DEL MAIN -->
 		<article class="module width_full">

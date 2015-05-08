@@ -22,8 +22,8 @@
 		</h4>
 
 		<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-			<br><p align="right"><a href="buscador" type="button" class="btn btn-default">Busqueda</a></p>
-	    </div><br><br><br>
+			<br><p align="right"><a href="buscador" type="button" class="btn btn-default">Realizar Otra Busqueda</a></p>
+	    </div>
 
 		 <?php if (Session::has('editarPost_index')) {?>
 			<h4 class="alert_success">Post Actualizado Correctamente!</h4>
@@ -39,7 +39,7 @@
 		 		
 		
 <article class="module width_3_quarter">
-		<header><h3 class="tabs_involved"><b>Posts Registrados</b></h3>
+		<header><h3 class="tabs_involved"><b>Posts Encontrados</b></h3>
 		</header>
 
 		<div class="tab_container">
@@ -56,9 +56,49 @@
 			</thead> 
 			<tbody> 
 				<?php  
-				//$posts = Post::orderBy('updated_at','desc')->paginate(11);
-				//$posts = DB::select('SELECT u.id as idusuario,p.id,mensaje,u.nombre,u.apPaterno,p.updated_at from post p, users u where u.id = p.idUsuario ORDER BY updated_at desc')->paginate(5);
+				$BusquedaPorPalabra = Session::get("BusquedaPorPalabra");
+				$BusquedaPorCurp = Session::get("BusquedaPorCurp");
+				$BusquedaPorFecha = Session::get("BusquedaPorFecha");
+
+
+				 if ($BusquedaPorPalabra != null) {
+				 	$posts = Post::where('mensaje', 'LIKE', '%'.$BusquedaPorPalabra.'%')->orderBy('updated_at','desc')->paginate(10);
+				 }
+
+
+				 elseif ($BusquedaPorCurp != null) {
+
+				 	$resultados = DB::select('SELECT id FROM users WHERE username = ?', array($BusquedaPorCurp)); // Obtengo ID de Usuario
+
+				 	if ($resultados != null) {
+
+
+					 	foreach ($resultados as $resultado) {
+					 		$id = $resultado->id; 
+					 	}
+
+					 		$posts = Post::where('idUsuario', '=', $id )->orderBy('updated_at','desc')->paginate(10);
+					}
+					else{
+						$posts = Post::where('idUsuario', '=', 0 )->orderBy('updated_at','desc')->paginate(10);
+					}
+
+				 }
+
+
+				 elseif ($BusquedaPorFecha != null) {
+				 	$posts = Post::where('updated_at', 'LIKE', '%'.$BusquedaPorFecha.'%')->orderBy('updated_at','desc')->paginate(10);
+				 }
+
+				 		Session::forget("BusquedaPorPalabra");
+						Session::forget("BusquedaPorCurp");
+						Session::forget("BusquedaPorFecha");
+
+		         
 				?>
+
+
+
 				@foreach($posts as $p) 
 				<?php $datos = DB::select('SELECT id,nombre,apPaterno from users  where id = ?', array($p->idUsuario));  ?>
 				

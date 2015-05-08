@@ -33,9 +33,8 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 		<?php if (Session::has('eliminarComentario_index')) {?>
 			<h4 class="alert_success">Comentario Eliminado Correctamente!</h4>
-		 <?php }?>			 		 		
-		
-		
+		 <?php }?>	
+		 		 		 					
 		<article class="module width_full">
 			<header><h3>Estadisticas</h3></header>
 			<div class="module_content">

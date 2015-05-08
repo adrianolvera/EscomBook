@@ -22,7 +22,7 @@ height: 20px;
 }
 
 a:link, a:visited {
-color: #666;
+color: #595959;
 
 text-decoration: none;
 }
@@ -340,6 +340,9 @@ background: url(../images/icn_security.png) no-repeat center left;
 }
 #sidebar li.icn_jump_back a {
 background: url(../images/icn_jump_back.png) no-repeat center left;
+}
+#sidebar li.icn_logout a {
+background: url(../images/icn_logout.png) no-repeat center left;
 }
 
 #sidebar p {

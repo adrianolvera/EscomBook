@@ -146,8 +146,20 @@ if ($curp == null) {
 					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" value="<?php echo $dato2;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required readonly><br><br>
 					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno" value="<?php echo $dato3;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required readonly><br><br>
 									
-									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>
+									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br><br>
 
+									Telefono de Contacto:&nbsp;
+
+									<select class="form-control" name="tipoTelefono" required>
+								        <option value=1>Personal</option>
+								        <option value=2>Trabajo</option>
+								      </select>	<br><br>
+
+									Numero: &nbsp;<input type="text" name="telefono" pattern="[0-9]*$"; maxlength="15" required>&nbsp;&nbsp;
+									Extensión:&nbsp;<input type="text" name="extTelefono" pattern="[0-9]*$"; placeholder="Si no cuenta con extensión dejar en blanco">
+									<br><br><br>
+
+									
 									CURP:&nbsp;<input type="text" name="username" placeholder="CURP" value="<?php echo $dato4;?>" readonly><br><br>
 
 									Contraseña:&nbsp;<input type="password" title="Ingresa tu Contraseña" id="password" name="password" placeholder="Escriba una Contraseña" maxlength="50" required><br><br>

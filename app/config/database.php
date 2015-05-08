@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'escombook', // Nombre de la base de datos
+			'database'  => 'escombook2', // Nombre de la base de datos
 			'username'  => 'root', // Usuario
 			'password'  => 'root',     // Contrtaseña
 			'charset'   => 'utf8',

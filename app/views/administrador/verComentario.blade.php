@@ -30,7 +30,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 					if ($idUser == null && $idComentario == null ) { 
 					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL; $dato9=null;
-					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
+					?><br><br><br><br><a class="btn" href="javascript:history.back(1)">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 
@@ -80,13 +80,9 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 							<?php if ($Comentario->rutaMultimedia != null){ ?>
 
-							<div class="module_content">
-
-								<a class="group1" href="{{ $Comentario->rutaMultimedia }}">
-								    <img src="{{ $Comentario->rutaMultimedia }}" height="20%" width="20%">
-								</a>
-							
-							</div>							
+							  <ul class="gallery">
+							    <a href="{{ $Comentario->rutaMultimedia }}"><img src="{{ $Comentario->rutaMultimedia }}" alt="Image" height="15%" width="15%"></a>
+							  </ul>													
 								
 							<?php } else{ ?>
 								<h4 class="alert_warning">No contiene archivo Multimedia.</h4>

@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="utf-8"/>
-	<title>Muro | ESCOMBook</title>
+	<title>Egresado| ESCOMBook</title>
 	<!-- CSS are placed here -->
     <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -62,32 +62,14 @@ function checkTime(i)
 window.onload=function(){startTime();}
 </script>
 
-
-        <link rel="stylesheet" href="css/colorbox.css" />
-		<script src="js/jquery.colorbox.js"></script>
-		<script>
-			$(document).ready(function(){
-				//Examples of how to assign the Colorbox event to elements
-				$(".group1").colorbox({rel:'group1'});
-				$(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
-				$(".callbacks").colorbox({
-					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
-					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
-					onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
-					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
-					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
-				});
-
-				$('.non-retina').colorbox({rel:'group5', transition:'none'})
-				$('.retina').colorbox({rel:'group5', transition:'none', retinaImage:true, retinaUrl:true});
-				
-				//Example of preserving a JavaScript event for inline calls.
-				$("#click").click(function(){ 
-					$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
-					return false;
-				});
-			});
-		</script>
+<script src="js/jquery.lightbox.js"></script>  <!-- MODAL IMAGENES -->
+<link rel="stylesheet" type="text/css" href="css/modal/jquery.lightbox.css">
+<script>
+  // Initiate Lightbox
+  $(function() {
+    $('.gallery a').lightbox(); 
+  });
+</script>
 
 </head>
 
@@ -96,31 +78,31 @@ window.onload=function(){startTime();}
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="administrador">ESCOMBook</a></h1>
-			<h2 class="section_title">Muro de Egresado</h2>
+			<h1 class="site_title"><a href="egresado">ESCOMBook</a></h1>
+			<h2 class="section_title">Egresado</h2>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
 	<section id="secondary_bar">
 		<div class="user">
-			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}} &nbsp; (<a href="logout">Cerrar Sesión</a>)</p>
+			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}}</p>
 		</div>
 	</section><!-- end of secondary bar -->
 	
 	<aside id="sidebar" class="column">
-		<form class="quick_search">
-			<input type="text" value="Busqueda Rapida" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-		</form>
+		<br>
+			<li class="icn_logout"><a href="logout">Cerrar Sesión</a></li>	
 		<hr/>
 
 		<h3>Menu</h3>
 		<ul class="toggle">
 			<li class="icn_folder"><a href="{{ URL::to('egresado.miMuro') }}">Mi Muro</a></li>
+			<li class="icn_folder"><a href="{{ URL::to('egresado') }}">Muro General</a></li>
 		</ul>
 
 		<h3>Administración</h3>
 		<ul class="toggle">
-			<li class="icn_profile"><a href="#">Mi Perfil</a></li>
+			<li class="icn_profile"><a href="#"> Editar Mi Perfil</a></li>
 		</ul>
 
 		<h3>Datos a Contestar</h3>

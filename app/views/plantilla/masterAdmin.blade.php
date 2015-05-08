@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="utf-8"/>
-	<title>Panel de Administración | ESCOMBook</title>
+	<title>Administrador| ESCOMBook</title>
 	<!-- CSS are placed here -->
     <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -62,32 +62,14 @@ function checkTime(i)
 window.onload=function(){startTime();}
 </script>
 
-
-        <link rel="stylesheet" href="css/colorbox.css" />
-		<script src="js/jquery.colorbox.js"></script>
-		<script>
-			$(document).ready(function(){
-				//Examples of how to assign the Colorbox event to elements
-				$(".group1").colorbox({rel:'group1'});
-				$(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
-				$(".callbacks").colorbox({
-					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
-					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
-					onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
-					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
-					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
-				});
-
-				$('.non-retina').colorbox({rel:'group5', transition:'none'})
-				$('.retina').colorbox({rel:'group5', transition:'none', retinaImage:true, retinaUrl:true});
-				
-				//Example of preserving a JavaScript event for inline calls.
-				$("#click").click(function(){ 
-					$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
-					return false;
-				});
-			});
-		</script>
+<script src="js/jquery.lightbox.js"></script>  <!-- MODAL IMAGENES -->
+<link rel="stylesheet" type="text/css" href="css/modal/jquery.lightbox.css">
+<script>
+  // Initiate Lightbox
+  $(function() {
+    $('.gallery a').lightbox(); 
+  });
+</script>
 
 </head>
 
@@ -103,21 +85,27 @@ window.onload=function(){startTime();}
 	
 	<section id="secondary_bar">
 		<div class="user">
-			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}} &nbsp; (<a href="logout">Cerrar Sesión</a>)</p>
+			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}}</p>
 		</div>
 	</section><!-- end of secondary bar -->
 	
 	<aside id="sidebar" class="column">
-		<form class="quick_search">
-			<input type="text" value="Busqueda Rapida" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-		</form>
-		<hr/>
+		<br>
+			<li class="icn_logout"><a href="logout">Cerrar Sesión</a></li>	
+		<hr/>		
+
+		<h3>Menu</h3>
+		<ul class="toggle">
+			<li class="icn_folder"><a href="{{ URL::to('administrador.miMuro') }}">Mi Muro</a></li>
+		</ul>		
+
+
 
 		<h3>Gestión de Usuarios</h3>
 		<ul class="toggle">
 			<li class="icn_add_user"><a href="agregarUsuario">Agregar Nuevo Usuario</a></li>
-			<li class="icn_view_users"><a href="#">Ver Usuarios</a></li>
-			<li class="icn_profile"><a href="#">Mi Perfil</a></li>
+			<li class="icn_view_users"><a href="gestionUsuarios">Gestión Usuarios</a></li>
+			<li class="icn_profile"><a href="#">Editar Mi Perfil</a></li>
 		</ul>
 
 		<h3>Gestión de Contenido</h3>
