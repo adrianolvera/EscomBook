@@ -78,7 +78,7 @@ window.onload=function(){startTime();}
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="administrador">ESCOMBook</a></h1>
+			<h1 class="site_title"><a href="index">ESCOMBook</a></h1>
 			<h2 class="section_title">Panel de Administración</h2>
 		</hgroup>
 	</header> <!-- end of header bar -->
@@ -116,9 +116,9 @@ window.onload=function(){startTime();}
 
 		<h3>Generación de Reportes</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="administrador/reportes">Nuevo Reporte</a></li>
-			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
-			<li class="icn_categories"><a href="#">Categories</a></li>
+			<li class="icn_new_article"><a href="{{ URL::to('administrador/reportes') }}">Reporte de generación</a></li>
+			<li class="icn_new_article"><a href="#">Reporte año de egreso</a></li>
+			<li class="icn_new_article"><a href="#">Reporte lugar trabajo por generacion</a></li>
 		</ul>
 		
 		<footer>

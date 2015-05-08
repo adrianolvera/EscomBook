@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Reportes</title>
     <link rel="stylesheet"  href="{{asset('css/layout.css')}}" type="text/css" media="screen" />
     <link rel="stylesheet"  href="{{asset('css/bootstrap.min.css')}}"/>
 </head>
@@ -14,35 +14,35 @@
     </hgroup>
   </header> 
     <br>
-      {{Form::open(array('action' => 'PDFController@show', 'method' => 'get', 'target'=>'_blank'))}}
+      {{Form::open(array('action' => 'PDFController@store', 'method' => 'post', 'target'=>'_blank'))}}
 
 
 
 <div>
 {{Form::label('generacion', 'Número de Generación')}}
 {{Form::select('generacion',array(
-'generacion_1'=>'Generacion 1',
-'generacion_2'=>'Generacion 2',
-'generacion_3'=>'Generacion 3',
-'generacion_4'=>'Generacion 4',
-'generacion_5'=>'Generacion 5',
-'generacion_6'=>'Generacion 6',
-'generacion_7'=>'Generacion 7',
-'generacion_8'=>'Generacion 8',
-'generacion_9'=>'Generacion 9',
-'generacion_10'=>'Generacion 10',
-'generacion_11'=>'Generacion 11',
-'generacion_12'=>'Generacion 12',
-'generacion_13'=>'Generacion 13',
-'generacion_14'=>'Generacion 14',
-'generacion_15'=>'Generacion 15',
-'generacion_16'=>'Generacion 16',
-'generacion_17'=>'Generacion 17',
-'generacion_18'=>'Generacion 18',
-'generacion_19'=>'Generacion 19',
-'generacion_20'=>'Generacion 20',
+'1'=>'Generacion 1',
+'2'=>'Generacion 2',
+'3'=>'Generacion 3',
+'4'=>'Generacion 4',
+'5'=>'Generacion 5',
+'6'=>'Generacion 6',
+'7'=>'Generacion 7',
+'8'=>'Generacion 8',
+'9'=>'Generacion 9',
+'10'=>'Generacion 10',
+'11'=>'Generacion 11',
+'12'=>'Generacion 12',
+'13'=>'Generacion 13',
+'14'=>'Generacion 14',
+'15'=>'Generacion 15',
+'16'=>'Generacion 16',
+'17'=>'Generacion 17',
+'18'=>'Generacion 18',
+'19'=>'Generacion 19',
+'20'=>'Generacion 20',
 '21'=>'Generacion 21'
-),'generacion_1')}}
+),'1')}}
 </div>
 <div>
   {{Form::label('boleta', 'Año de boleta')}}

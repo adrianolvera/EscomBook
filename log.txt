@@ -1,0 +1,65 @@
+commit e238e0b69d6e3d5c0279bf2a264105135f5de10d
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Mon May 4 11:35:58 2015 -0500
+
+    todo completo antes de fusionar
+
+commit 71853a995d7be2278ef458c5fbdbbf1b92d1f762
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Mon May 4 01:02:14 2015 -0500
+
+    plantilla de reportes en un pdf externo
+
+commit 48d823d87ba04baef18de735ce832d58ac93daca
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Mon May 4 01:01:52 2015 -0500
+
+    plantilla de reportes en un pdf externo
+
+commit 74cde8d84182fe39c5cca773c417feea2f63ed14
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Sun May 3 10:19:36 2015 -0500
+
+    funcionando reportes en una pestaña diferente
+
+commit b8862bc6724fac701e706695d9beabc7d662d911
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Thu Apr 30 00:33:23 2015 -0500
+
+    inicio de reportes con bd
+
+commit 5fb8f63f95989575f5bd7c2e38bbafc384f056cf
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Wed Apr 29 23:25:53 2015 -0500
+
+    enlaces de formularios funcionando
+
+commit 5261eaa91e216441c7b67c9bbb2b44a8f2548c63
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Fri Apr 24 19:41:22 2015 -0500
+
+    vista de reportes sin la consulta que dañaba
+
+commit 051a77eb413b9205475e80ec2a5122053736fb7f
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Fri Apr 24 11:52:39 2015 -0500
+
+    Todo agregado hasta el momento y avances en rutas y vista
+
+commit 522f3a732d4122f0d8298404020367c1d1154589
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Fri Apr 24 11:51:46 2015 -0500
+
+    poco avance en enrutamiento y vista
+
+commit 013f883954368c591095a80a7ae8069d72fc6831
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Thu Apr 23 22:13:00 2015 -0500
+
+    todo terminado
+
+commit 61d813948c6cb07c40f53ecd60d5e1650f1d0a9c
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Thu Apr 23 21:54:53 2015 -0500
+
+    todos los archivos agregados

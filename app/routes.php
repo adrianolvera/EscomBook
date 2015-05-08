@@ -735,3 +735,4 @@ Route::get('borrarComentario/{id}', [
 
 
 Route::resource('administrador/reportes', 'PDFController');
+
