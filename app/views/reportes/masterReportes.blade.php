@@ -18,7 +18,7 @@
 
 
 
-<div>
+<div class="repo container-fluid">
 {{Form::label('generacion', 'Número de Generación')}}
 {{Form::select('generacion',array(
 '1'=>'Generacion 1',
@@ -44,30 +44,78 @@
 '21'=>'Generacion 21'
 ),'1')}}
 </div>
-<div>
+<div class="repo container-fluid">
   {{Form::label('boleta', 'Año de boleta')}}
 {{Form::text('boleta','2011630516')}}
 </div>
 
-<div>
+<div class="repo container-fluid">
   {{Form::label('ingreso', 'Año de Ingreso')}}
 {{Form::text('boleta')}}
 </div>
 
-<div>
+<div class="repo container-fluid">
  {{Form::label('egreso', 'Año de egreso')}}
 {{Form::text('boleta')}}
- 
+      {{Form::submit('Enviar')}}
+      {{Form::close()}}
 </div>
 
-      {{Form::submit('Enviar')}}
 
 
 
-      {{Form::close()}}
+<div>
+  <table class="tablesorter" cellspacing="0"> 
+      <thead> 
+        <tr> 
+            <th></th> 
+            <th>Comment</th> 
+            <th>Posted by</th> 
+            <th>Posted On</th> 
+            <th>Actions</th> 
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr> 
+            <td><input type="checkbox"></td> 
+            <td>Lorem Ipsum Dolor Sit Amet</td> 
+            <td>Mark Corrigan</td> 
+            <td>5th April 2011</td> 
+            <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+        </tr> 
+        <tr> 
+            <td><input type="checkbox"></td> 
+            <td>Ipsum Lorem Dolor Sit Amet</td> 
+            <td>Jeremy Usbourne</td> 
+            <td>6th April 2011</td> 
+            <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+        </tr>
+        <tr> 
+            <td><input type="checkbox"></td> 
+            <td>Sit Amet Dolor Ipsum</td> 
+            <td>Super Hans</td> 
+            <td>10th April 2011</td> 
+            <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+        </tr> 
+        <tr> 
+            <td><input type="checkbox"></td> 
+            <td>Dolor Lorem Amet</td> 
+            <td>Alan Johnson</td> 
+            <td>16th April 2011</td> 
+            <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+        </tr> 
+        <tr> 
+            <td><input type="checkbox"></td> 
+            <td>Dolor Lorem Amet</td> 
+            <td>Dobby</td> 
+            <td>16th April 2011</td> 
+            <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+        </tr> 
 
 
-
+      </tbody> 
+      </table>
+</div>
        
     <footer>
       <hr/>

@@ -368,6 +368,9 @@ margin-top: 20%;
 
 /* Main Content */
 
+.repo{
+	display: inline-block;
+}
 
 section#main {
 width: 78%;
