@@ -1,3 +1,9 @@
+commit 9175786e6c7688c897ab8b48e975832e7051649a
+Author: Adrian Olvera <adriano.ame@gmail.com>
+Date:   Thu May 7 23:08:48 2015 -0500
+
+    menus laterales cambiados
+
 commit e238e0b69d6e3d5c0279bf2a264105135f5de10d
 Author: Adrian Olvera <adriano.ame@gmail.com>
 Date:   Mon May 4 11:35:58 2015 -0500
