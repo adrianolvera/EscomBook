@@ -6,8 +6,13 @@ class PDFController extends BaseController{
 	}
 
 	public function store(){
+		return "algo";
+
+	}
+
+	public function show(){
 		$data= Input::get('generacion');
-		Session::put('data',$data);
+		Session::put('prueba',$data);
 	
 /*	$consulta=DB::select('SELECT * FROM datos_egresados where generacion="21"');*/
 
@@ -48,11 +53,6 @@ class PDFController extends BaseController{
             $view=View::make('reportes.reporteGeneracion');
             $html=$view->render();
 		    return PDF::load($html, 'A4', 'portrait')->show();
-
-	}
-
-	public function show(){
-		
 	}
 }
 

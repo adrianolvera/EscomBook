@@ -108,17 +108,15 @@ window.onload=function(){startTime();}
 
 		<h3>Gestión de Contenido</h3>
 		<ul class="toggle">
-
-			<li class="icn_folder"><a href="{{ URL::to('encargado.miMuro') }}">Muro</a></li>
-
+			<li class="icn_folder"><a href="{{ URL::to('encargado.muro') }}">Muro General</a></li>
 			<li class="icn_photo"><a href="gestionPosts">Gestión Posts</a></li>
 		</ul>
 
 		<h3>Generación de Reportes</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="{{ URL::to('reportes.reportes') }}">Reporte de generación</a></li>
-			<li class="icn_new_article"><a href="#">Reporte año de egreso</a></li>
-			<li class="icn_new_article"><a href="#">Reporte lugar trabajo por generacion</a></li>
+			<li class="icn_new_article"><a href="#">Nuevo Reporte</a></li>
+			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
+			<li class="icn_categories"><a href="#">Categories</a></li>
 		</ul>
 		
 		<footer>
