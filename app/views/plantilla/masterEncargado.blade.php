@@ -113,10 +113,9 @@ window.onload=function(){startTime();}
 		</ul>
 
 		<h3>Generación de Reportes</h3>
+		<h3>Generación de Reportes</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="#">Nuevo Reporte</a></li>
-			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
-			<li class="icn_categories"><a href="#">Categories</a></li>
+			<li class="icn_new_article"><a href="{{ URL::to('reportes.reportes') }}">Selección de reporte</a></li>
 		</ul>
 		
 		<footer>
