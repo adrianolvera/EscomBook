@@ -9,7 +9,7 @@
 <body>
     <header id="header">
     <hgroup>
-      <h1 class="site_title"><a href="administrador/index">ESCOMBook</a></h1>
+      <h1 class="site_title"><a href="{{URL::to('administrador')}}">ESCOMBook</a></h1>
       <h2 class="section_title">Generación de Reportes</h2>
     </hgroup>
   </header> 
