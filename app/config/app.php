@@ -94,6 +94,7 @@ return array(
 	*/
 
 	'providers' => array(
+		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider',
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
@@ -150,6 +151,7 @@ return array(
 
 	'aliases' => array(
 		'PDF' => 'Thujohn\Pdf\PdfFacade',
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 		'App'               => 'Illuminate\Support\Facades\App',
 		'Artisan'           => 'Illuminate\Support\Facades\Artisan',
 		'Auth'              => 'Illuminate\Support\Facades\Auth',
