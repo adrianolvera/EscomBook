@@ -5,7 +5,7 @@ class PDFController extends BaseController{
 		return View::make('reportes.reportes');
 	}
 
-	public function store(){
+	public function generarGeneracion(){
 		$data= Input::get('generacion');
 		Session::put('data',$data);
 
@@ -16,9 +16,28 @@ class PDFController extends BaseController{
 		 
 	}
 
-	public function show(){
-		
+	public function generarAnioEgreso(){
+		$data= Input::get('generacion');
+		Session::put('data',$data);
+
+           
+            $view=View::make('reportes.reporteGeneracion');
+            $html=$view->render();
+		    return PDF::load($html, 'A4', 'portrait')->show();
+		 
 	}
+
+		public function generarLugarTrabajo(){
+		$data= Input::get('generacion');
+		Session::put('data',$data);
+
+           
+            $view=View::make('reportes.reporteGeneracion');
+            $html=$view->render();
+		    return PDF::load($html, 'A4', 'portrait')->show();
+		 
+	}
+
 }
 
 ?>

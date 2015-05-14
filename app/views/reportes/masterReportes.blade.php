@@ -5,69 +5,72 @@
   <title>Reportes</title>
     <link rel="stylesheet"  href="{{asset('css/layout.css')}}" type="text/css" media="screen" />
     <link rel="stylesheet"  href="{{asset('css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/Font-Awesome-master/css/font-awesome.min.css')}}"/>
 </head>
 <body>
     <header id="header">
     <hgroup>
-      <h1 class="site_title"><a href="administrador/index">ESCOMBook</a></h1>
+      <h1 class="site_title"><a href="{{ URL::to('administrador') }}">ESCOMBook</a></h1>
       <h2 class="section_title">Generación de Reportes</h2>
     </hgroup>
   </header> 
     <br>
-      {{Form::open(array('action' => 'PDFController@store', 'method' => 'post', 'target'=>'_blank'))}}
+      
 
 
 
 <div class="repo container-fluid">
-{{Form::label('generacion', 'Número de Generación')}}
-{{Form::select('generacion',array(
-'1'=>'Generacion 1',
-'2'=>'Generacion 2',
-'3'=>'Generacion 3',
-'4'=>'Generacion 4',
-'5'=>'Generacion 5',
-'6'=>'Generacion 6',
-'7'=>'Generacion 7',
-'8'=>'Generacion 8',
-'9'=>'Generacion 9',
-'10'=>'Generacion 10',
-'11'=>'Generacion 11',
-'12'=>'Generacion 12',
-'13'=>'Generacion 13',
-'14'=>'Generacion 14',
-'15'=>'Generacion 15',
-'16'=>'Generacion 16',
-'17'=>'Generacion 17',
-'18'=>'Generacion 18',
-'19'=>'Generacion 19',
-'20'=>'Generacion 20',
-'21'=>'Generacion 21'
-),'1')}}
+  {{Form::open(array('action' => 'PDFController@generarGeneracion', 'method' => 'post', 'target'=>'_blank'))}}
+  {{Form::label('generacion', 'Número de Generación')}}
+  {{Form::select('generacion',array(
+  '1'=>'Generacion 1',
+  '2'=>'Generacion 2',
+  '3'=>'Generacion 3',
+  '4'=>'Generacion 4',
+  '5'=>'Generacion 5',
+  '6'=>'Generacion 6',
+  '7'=>'Generacion 7',
+  '8'=>'Generacion 8',
+  '9'=>'Generacion 9',
+  '10'=>'Generacion 10',
+  '11'=>'Generacion 11',
+  '12'=>'Generacion 12',
+  '13'=>'Generacion 13',
+  '14'=>'Generacion 14',
+  '15'=>'Generacion 15',
+  '16'=>'Generacion 16',
+  '17'=>'Generacion 17',
+  '18'=>'Generacion 18',
+  '19'=>'Generacion 19',
+  '20'=>'Generacion 20',
+  '21'=>'Generacion 21'
+  ),'1')}}
+{{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
+{{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
+  {{Form::close()}}
 </div>
+
+
 <div class="repo container-fluid">
-  {{Form::label('boleta', 'Año de boleta')}}
-{{Form::text('boleta','2011630516')}}
+{{Form::open(array('action' => 'PDFController@generarAnioEgreso', 'method' => 'post', 'target'=>'_blank'))}}
+  {{Form::label('egreso', 'Año de egreso')}}
+{{Form::text('egreso','2011')}}
+{{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
+{{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
+  {{Form::close()}}
 </div>
 
 <div class="repo container-fluid">
-  {{Form::label('ingreso', 'Año de Ingreso')}}
-{{Form::text('boleta')}}
+{{Form::open(array('action' => 'PDFController@generarLugarTrabajo', 'method' => 'post', 'target'=>'_blank'))}}
+{{Form::label('trabajo', 'Lugar de trabajo')}}
+{{Form::text('trabajo','Empresa privada')}}
+{{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
+{{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
+  {{Form::close()}}
 </div>
 
-<div class="repo container-fluid">
- {{Form::label('egreso', 'Año de egreso')}}
-{{Form::text('boleta')}}
-</div>
-<br>
-<br>
-<div class="container-fluid">
-      {{Form::submit('Generar Reporte')}}
-      {{Form::submit('Generar Excel')}}
-      {{Form::close()}}
-</div>
-<p class="repo container-fluid" >
-  <a class="btn btn-default" href="#" role="button">Generar Excel</a>
-</p>
+
+
 
 <div class=" container-fluid">
   <table class="tablesorter" cellspacing="0"> 

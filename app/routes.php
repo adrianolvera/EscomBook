@@ -734,4 +734,7 @@ Route::get('borrarComentario/{id}', [
 
 
 
-Route::resource('administrador/reportes', 'PDFController');
+Route::get('administrador/reportes', 'PDFController@index');
+Route::post('administrador/reportes/pdf', 'PDFController@generarGeneracion');
+Route::post('administrador/reportes/pdf', 'PDFController@generarAnioEgreso');
+Route::post('administrador/reportes/pdf', 'PDFController@generarLugarTrabajo');
