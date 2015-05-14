@@ -772,4 +772,7 @@ Route::get('encargado.perfil', array('before' => 'auth', 'uses' => 'UserControll
 
 Route::get('admin.perfil', array('before' => 'auth', 'uses' => 'UserController@perfil'));
 
-Route::resource('administrador/reportes', 'PDFController');
+Route::get('administrador/reportes', 'PDFController@index');
+Route::post('administrador/reportes/pdf_generacion', 'PDFController@generarGeneracion');
+Route::post('administrador/reportes/pdf_anioEgreso', 'PDFController@generarAnioEgreso');
+Route::post('administrador/reportes/pdf_lugarTrabajo', 'PDFController@generarLugarTrabajo');
