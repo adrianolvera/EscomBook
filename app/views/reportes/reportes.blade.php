@@ -15,36 +15,31 @@
     </hgroup>
   </header> 
     <br>
-      
+
+    <?php
+            $consulta=DB::select('SELECT * FROM datos_egresados'); 
+ $consulta = array_values(array_sort($consulta, function($value)
+                {
+                    return $value->generacion;
+                }));
+                $arreglo = array();
+                $arreglo[0] = "";
+                $arreglo1 = array();
+                $arreglo1[0] = "";
+                foreach ($consulta as $clave => $valor) {
+                    $arreglo[$valor->generacion] = $valor->generacion;
+                    $arreglo1[$valor->anio_egreso] = $valor->anio_egreso;
+
+                }
+            ?>
+
 
 
 
 <div class="repo container-fluid">
   {{Form::open(array('action' => 'PDFController@generarGeneracion', 'method' => 'post', 'target'=>'_blank'))}}
   {{Form::label('generacion', 'Número de Generación')}}
-  {{Form::select('generacion',array(
-  '1'=>'Generacion 1',
-  '2'=>'Generacion 2',
-  '3'=>'Generacion 3',
-  '4'=>'Generacion 4',
-  '5'=>'Generacion 5',
-  '6'=>'Generacion 6',
-  '7'=>'Generacion 7',
-  '8'=>'Generacion 8',
-  '9'=>'Generacion 9',
-  '10'=>'Generacion 10',
-  '11'=>'Generacion 11',
-  '12'=>'Generacion 12',
-  '13'=>'Generacion 13',
-  '14'=>'Generacion 14',
-  '15'=>'Generacion 15',
-  '16'=>'Generacion 16',
-  '17'=>'Generacion 17',
-  '18'=>'Generacion 18',
-  '19'=>'Generacion 19',
-  '20'=>'Generacion 20',
-  '21'=>'Generacion 21'
-  ),'1')}}
+  {{Form::select('generacion',$arreglo,'1')}}
 {{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
 {{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
   {{Form::close()}}
@@ -54,7 +49,7 @@
 <div class="repo container-fluid">
 {{Form::open(array('action' => 'PDFController@generarAnioEgreso', 'method' => 'post', 'target'=>'_blank'))}}
   {{Form::label('egreso', 'Año de egreso')}}
-{{Form::text('egreso','2011')}}
+{{Form::select('egreso',$arreglo1,'')}}
 {{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
 {{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
   {{Form::close()}}
@@ -63,7 +58,7 @@
 <div class="repo container-fluid">
 {{Form::open(array('action' => 'PDFController@generarLugarTrabajo', 'method' => 'post', 'target'=>'_blank'))}}
 {{Form::label('trabajo', 'Lugar de trabajo')}}
-{{Form::text('trabajo','Empresa privada')}}
+{{Form::text('trabajo','Empresa privada',array('class' => 'col-xs-12 col-sm-6', 'readonly'))}}
 {{ Form::button('', array('class'=>'fa fa-file-pdf-o fa-2x', 'type'=>'submit')) }}
 {{ Form::button('', array('class'=>'fa fa-file-excel-o fa-2x', 'type'=>'submit')) }}
   {{Form::close()}}

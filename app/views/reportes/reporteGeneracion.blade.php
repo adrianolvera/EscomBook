@@ -17,11 +17,8 @@
             <td width="20%"><img src="{{asset('images/logos/escom.png')}}" /></td>
         </tr>
     </table>
-    <div id="fechaCreacion">
-        <p class="negrita" style="text-align:right;"></p>
-    </div>
     <div id="precontenido" class="fullWidth text-center">
-        <h3 class="azul">Reporte General de Generación {{ $data=Session::get('data') }}  </h3>
+       <h3 class="azul">Reporte General de Generación {{ $data=Session::get('data') }}  </h3>
         
      
     </div>
@@ -30,24 +27,27 @@
 
         <table class="fullWidth table table-bordered">
             <tr>
+            
                 <td style="width:25%">Boleta</td>
                 <td style="width:25%">Nombre</td>
                 <td style="width:25%">Apellido</td>
                 <td style="width:25%">Año de egreso</td>
-
             </tr>
+
+           
             <?php
             $consulta=DB::select('SELECT * FROM datos_egresados join users where generacion=:id',['id'=>$data]);
 
             ?>
-            @foreach ($consulta as $consul)
-            <tr>
-                <td style="width:25%">{{ $consul->boleta }}</td>
-                <td style="width:25%">{{ $consul-> nombre}}</td>
-                <td style="width:25%">{{ $consul-> apPaterno}}</td>
-                <td style="width:25%">{{ $consul-> generacion}}</td>
-            </tr>
-            @endforeach
+          
+           @foreach ($consulta as $consul)
+           <tr>
+               <td style="width:25%">{{ $consul->boleta }}</td>
+               <td style="width:25%">{{ $consul-> nombre}}</td>
+               <td style="width:25%">{{ $consul-> apPaterno}}</td>
+               <td style="width:25%">{{ $consul-> generacion}}</td>
+           </tr>
+           @endforeach
 
         </table>
     </div>

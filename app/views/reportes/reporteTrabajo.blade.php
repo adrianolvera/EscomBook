@@ -21,9 +21,9 @@
         <p class="negrita" style="text-align:right;"></p>
     </div>
     <div id="precontenido" class="fullWidth text-center">
-        <h3 class="azul">Reporte General de Generación {{ $data=Session::get('data') }}  </h3>
-        
-     
+        <h3 class="azul">Reporte General de Lugar de Trabajo </h3>
+
+            
     </div>
     <div id="contenidos">
         
@@ -37,6 +37,7 @@
 
             </tr>
             <?php
+            $data=Session::get('data2');
             $consulta=DB::select('SELECT * FROM datos_egresados join users where generacion=:id',['id'=>$data]);
 
             ?>

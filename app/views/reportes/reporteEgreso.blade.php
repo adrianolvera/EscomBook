@@ -21,7 +21,7 @@
         <p class="negrita" style="text-align:right;"></p>
     </div>
     <div id="precontenido" class="fullWidth text-center">
-        <h3 class="azul">Reporte General de Generación {{ $data=Session::get('data') }}  </h3>
+        <h3 class="azul">Reporte Año de Egreso {{ $data=Session::get('data') }}  </h3>
         
      
     </div>

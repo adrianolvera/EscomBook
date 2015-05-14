@@ -28,8 +28,8 @@ class PDFController extends BaseController{
 	}
 
 		public function generarLugarTrabajo(){
-		$data= Input::get('generacion');
-		Session::put('data',$data);
+		$data= Input::get('trabajo');
+		Session::put('data2',$data);
 
            
             $view=View::make('reportes.reporteTrabajo');
