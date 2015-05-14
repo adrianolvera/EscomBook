@@ -9,7 +9,7 @@
 <body>
     <header id="header">
     <hgroup>
-      <h1 class="site_title"><a href="{{URL::to('administrador')}}">ESCOMBook</a></h1>
+      <h1 class="site_title"><a href="{{URL::to("administrador")}}">ESCOMBook</a></h1>
       <h2 class="section_title">Generación de Reportes</h2>
     </hgroup>
   </header> 
@@ -57,14 +57,19 @@
 <div class="repo container-fluid">
  {{Form::label('egreso', 'Año de egreso')}}
 {{Form::text('boleta')}}
-      {{Form::submit('Enviar')}}
+</div>
+<br>
+<br>
+<div class="container-fluid">
+      {{Form::submit('Generar Reporte')}}
+      {{Form::submit('Generar Excel')}}
       {{Form::close()}}
 </div>
+<p class="repo container-fluid" >
+  <a class="btn btn-default" href="#" role="button">Generar Excel</a>
+</p>
 
-
-
-
-<div>
+<div class=" container-fluid">
   <table class="tablesorter" cellspacing="0"> 
       <thead> 
         <tr> 
@@ -117,7 +122,7 @@
       </table>
 </div>
        
-    <footer>
+    <footer class="container-fluid">
       <hr/>
       <p><strong>Escuela Superior de Cómputo.</strong></p>
     <p style="text-align: justify;">Esta página es una obra intelectual protegida por la Ley Federal del Derecho de Autor, puede ser reproducida con fines no lucrativos, siempre y cuando no se mutile, se cite la fuente completa y su dirección electrónica; su uso para otros fines, requiere autorización previa y por escrito del Director General del Instituto.<br>

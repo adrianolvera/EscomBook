@@ -106,3 +106,106 @@ public static $rules = array(
         $('#previewC').css('visibility', 'visible');
     });
 </script>
+
+, 'name' => 'tels[]'
+
+foreach ($input as $i) {
+                //$all = $all . $i . "<br>";
+                if($x < 6){
+                    foreach($tel as $t) {
+                        if($x % 2 == 0){
+                            $t->telefono      = $i;
+                            $all = $all . $i . "<br>";
+                        }else{
+                            $t->tipoTelefono  = $i;
+                            $all = $all . $i . "<br>";
+                        }
+                    }
+                    if($x % 2 == 0){
+                        $t              = new Telefono;
+                        $t->idUsuario   = Auth::user()->id;
+                        $t->telefono    = $i;
+                        $all = $all . $i . "<br>";
+                    }else{
+                        $t->tipoTelefono  = $i;
+                        $all = $all . $i . "<br>";
+                    }
+
+                }else{
+                    $all = $all . $i . "<br>";  
+                }
+                
+                // if($x == 0)
+                //  $tel->telefono      = $i;
+                // elseif($x == 1)
+                //  $tel->tipoTelefono  = $i;
+                // elseif($x == 3)
+                //  $correo->correo     = $i;
+                // elseif($x == 4)
+                //  $correo->tipoCorreo = $i;
+                $x++;
+            }
+
+            if($x < 6){//Estos son los primeros telefonos
+                    while($aux2 < $tam){
+                        if($x == 0){
+                            $x++;
+                            $tel[0]->telefono     = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }elseif($x == 1){
+                            $x++;
+                            $aux2++;
+                            $tel[0]->tipoTelefono = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }elseif($x == 2){
+                            $x++;
+                            $tel[1]->telefono     = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }elseif($x == 3){
+                            $x++;
+                            $aux2++;
+                            $tel[1]->tipoTelefono = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }elseif($x == 4){
+                            $x++;
+                            $tel[2]->telefono     = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }elseif($x == 5){
+                            $x++;
+                            $aux2++;
+                            $tel[2]->tipoTelefono = $i;
+                            $all = $all . $i . "<br>";
+                            continue;
+                        }
+                    }//Fin mientras no hayas recorrido todo el arreglo de telefonos
+                    if($x == 2){
+                        $x++;
+                        $tel            = new Telefono;
+                        $tel->idUsuario = Auth::user()->id;
+                        $tel->telefono  = $i;
+                        $all = $all . $i . "<br>";
+                        continue;
+                    }elseif($x == 3){
+                        $x++;
+                        $tel->tipoTelefono = $i;
+                        $all = $all . $i . "<br>";
+                        continue;
+                    }elseif($x == 4){
+                        $x++;
+                        $tel            = new Telefono;
+                        $tel->idUsuario = Auth::user()->id;
+                        $tel->telefono  = $i;
+                        $all = $all . $i . "<br>";
+                        continue;
+                    }elseif($x == 5){
+                        $x++;
+                        $tel->tipoTelefono = $i;
+                        $all = $all . $i . "<br>";
+                        continue;
+                    }
+                }//Fin menor que 6. Fin telefonos. Comienza correos

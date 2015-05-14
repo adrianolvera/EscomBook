@@ -557,7 +557,36 @@ Route::get('verUsuario', array('before' => 'auth', function()
 
 }));
 
-////////////////////////
+/////////////////////////
+
+Route::get('editUsuario', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+
+return Redirect::to('editarUsuario')->with(array('idUser'=> $valor));
+
+}));
+
+
+
+Route::get('editarUsuario', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+			else{
+				return View::make('egresado.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+}
+
+}));
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -712,9 +741,6 @@ Route::get('gestionUsuarios', array('before' => 'auth', 'uses' => 'UserControlle
 
 ///////////////////////////////////////////////
 
-
-
-
 /*POSTS*/
 Route::post('muro', [
     'as' => 'crearP', 'uses' => 'PostController@store'
@@ -732,6 +758,18 @@ Route::get('borrarComentario/{id}', [
     'as' => 'borrarComentario', 'uses' => 'ComentarioController@borrar'
 ]);
 
+			/*Ruta del perfil de usuario*/
+			
+Route::get('egresado.perfil', array('before' => 'auth', 'uses' => 'UserController@perfil'));
+Route::post('egresado.perfil', array('before' => 'auth|csrf', 'uses' => 'UserController@saveBasics'));
+//Route::get('egresado.perfil/{section}', 'UserController@perfil');
+Route::get('egresado.trabajo', array('before' => 'auth', 'uses' => 'UserController@work'));
+Route::post('egresado.trabajo', array('before' => 'auth|csrf', 'uses' => 'UserController@saveWork'));
+Route::get('egresado.privacidad', array('before' => 'auth', 'uses' => 'UserController@privacity'));
+Route::post('egresado.privacidad', array('before' => 'auth|csrf', 'uses' => 'UserController@savePrivacity'));
 
+Route::get('encargado.perfil', array('before' => 'auth', 'uses' => 'UserController@perfil'));
+
+Route::get('admin.perfil', array('before' => 'auth', 'uses' => 'UserController@perfil'));
 
 Route::resource('administrador/reportes', 'PDFController');

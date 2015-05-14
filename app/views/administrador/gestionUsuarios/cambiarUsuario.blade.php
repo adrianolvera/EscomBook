@@ -29,7 +29,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 					if ($idUsuario == null ) { 
 					echo "<META HTTP-EQUIV='Refresh' CONTENT='0; url=gestionUsuarios'>"; 
-					?><br><br><br><br><a class="btn" href="gestionUsuarios">Regresar</a><br><br><br><br> <?php
+					?><br><br><br><br><a class="btn" href="javascript:history.back(1)">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 

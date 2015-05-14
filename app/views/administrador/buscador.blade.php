@@ -93,7 +93,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
         if (check2.checked){ // Selecciono CURP
         	element.style.display='none';
         	element2.style.display='inline';
-        	element3.style.display='none';
+        	element3.style.display='inline';
         	document.getElementById('palabraclave').value="VACIO";
             document.getElementById('curp').value='';
             document.getElementById('fecha').value="2015-02-30";

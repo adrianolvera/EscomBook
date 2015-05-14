@@ -24,7 +24,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 		<?php if (Session::has('agregarUsuario_Error')) {?>
 			<h4 class="alert_error">Error al agregar al Usuario <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			Ya Existe un CURP y/o Boleta registrados anteriormente!</h4>
+			Ya Existe cualquiera de estos datos: CURP, Correo y/o Boleta registrados anteriormente!</h4>
 		 <?php }?>				
 
 		<!-- INICIO DEL MAIN -->
@@ -43,8 +43,8 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 					 				<h4>
 									Nombre(s):&nbsp;<input type="text" name="nombre" placeholder="Nombre"  pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="50" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required><br><br>
-					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno"  pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno"  pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="40" required><br><br>
+					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno"   pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="40" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									
 
 							  		CURP:&nbsp;<input type="text" title="CURP" name="username" placeholder="CURP" size="30"  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" 
@@ -56,7 +56,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 									 Egresado:&nbsp; <input type="radio" name="check"  id="check3" value=3 onchange="javascript:showContent()" /><br><br><br>
 
 								<div id="content" style="display: none;">
-					 				Boleta:&nbsp; <input type="text" id="boleta" name="boleta" placeholder="Boleta"  value="0000000000" pattern="[0-9]*$" maxlength="10" required> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 				Boleta:&nbsp; <input type="text" id="boleta" name="boleta" placeholder="Boleta"  value="0000000000" pattern="[0-9]{10}" maxlength="10" required> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 				
 					 				Generación:&nbsp;
 
@@ -94,8 +94,20 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 								        <option value="1">Activo</option>
 							        								        
 								      </select>	<br><br>
-									Correo:&nbsp;<input type="email" id="correo" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>								   			 				
-									<br><br>				 			
+									Correo:&nbsp;<input type="email" id="correo" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>							   			 					
+
+									Teléfono de Contacto:&nbsp;
+
+									<select class="form-control" name="tipoTelefono" required>
+								        <option value=1>Personal</option>
+								        <option value=2>Trabajo</option>
+								      </select>	<br><br>
+
+									Numero: &nbsp;<input type="text" id="telefono" name="telefono" pattern="[0-9]*$"; placeholder="Ejemplo: 57789645 o 5538959678" maxlength="15" required>&nbsp;&nbsp;
+									Extensión:&nbsp;<input type="text" name="extTelefono" pattern="[0-9]*$"; placeholder="Si no cuenta con extensión dejar en blanco">
+									<br><br><br>
+
+
 								</div>							
 
 
@@ -128,6 +140,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
             document.getElementById('password2').value='DeScOnocida';
             document.getElementById('status').value='0';
             document.getElementById('correo').value='correo@correo.com';
+            document.getElementById('telefono').value='00000000';
 
         }
         
@@ -140,6 +153,7 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
             document.getElementById('password2').value='';
             document.getElementById('status').value='0';
             document.getElementById('correo').value='';
+                document.getElementById('telefono').value='';
 
         }
 

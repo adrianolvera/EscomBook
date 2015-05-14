@@ -78,39 +78,25 @@ window.onload=function(){startTime();}
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="egresado">ESCOMBook</a></h1>
+			<h1 class="site_title"><a href="administrador">ESCOMBook</a></h1>
 			<h2 class="section_title">Egresado</h2>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
 	<section id="secondary_bar">
 		<div class="user">
-			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}}</p>
+			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}} &nbsp; (<a href="logout">Cerrar Sesión</a>)</p>
 		</div>
 	</section><!-- end of secondary bar -->
 	
 	<aside id="sidebar" class="column">
-		<br>
-			<li class="icn_logout"><a href="logout">Cerrar Sesión</a></li>	
-		<hr/>
-
-		<h3>Menu</h3>
+		<h3>Información</h3>
 		<ul class="toggle">
-			<li class="icn_folder"><a href="{{ URL::to('egresado.miMuro') }}">Mi Muro</a></li>
-			<li class="icn_folder"><a href="{{ URL::to('egresado') }}">Muro General</a></li>
+			<li class="icn_profile"><a href="#">Información básica y de contacto</a></li>
+			<li class="icn_categories"><a href="{{ URL::to('egresado.trabajo') }}">Trabajo</a></li>
+			<li class="icn_security"><a href="{{ URL::to('egresado.privacidad') }}">Configuración Cuenta</a></li>
 		</ul>
 
-		<h3>Administración</h3>
-		<ul class="toggle">
-			<li class="icn_profile"><a href="{{ URL::to('egresado.perfil') }}">Mi Perfil</a></li>
-		</ul>
-
-		<h3>Datos a Contestar</h3>
-		<ul class="toggle">
-			<li class="icn_folder"><a href="#">Encuestas</a></li>
-		</ul>
-
-		
 		<footer>
 			<hr/>
 			<p><strong>Escuela Superior de Cómputo.</strong></p>

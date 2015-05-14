@@ -148,7 +148,7 @@ if ($curp == null) {
 									
 									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br><br>
 
-									Telefono de Contacto:&nbsp;
+									Teléfono de Contacto:&nbsp;
 
 									<select class="form-control" name="tipoTelefono" required>
 								        <option value=1>Personal</option>
