@@ -17,11 +17,11 @@ class PDFController extends BaseController{
 	}
 
 	public function generarAnioEgreso(){
-		$data= Input::get('generacion');
+		$data= Input::get('egreso');
 		Session::put('data',$data);
 
            
-            $view=View::make('reportes.reporteGeneracion');
+            $view=View::make('reportes.reporteEgreso');
             $html=$view->render();
 		    return PDF::load($html, 'A4', 'portrait')->show();
 		 
@@ -32,7 +32,7 @@ class PDFController extends BaseController{
 		Session::put('data',$data);
 
            
-            $view=View::make('reportes.reporteGeneracion');
+            $view=View::make('reportes.reporteTrabajo');
             $html=$view->render();
 		    return PDF::load($html, 'A4', 'portrait')->show();
 		 
